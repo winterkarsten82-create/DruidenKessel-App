@@ -1,0 +1,95 @@
+========================================
+  DRUIDENKESSEL APP - TEST-CHECKLISTE
+========================================
+
+Teste diese Funktionen vor der Weitergabe:
+
+LOGIN & REGISTRIERUNG:
+□ Login als Winnie funktioniert
+□ Neue Benutzer können sich registrieren
+□ Logout funktioniert
+□ Nach Logout bleiben Daten erhalten
+
+CHAT:
+□ Nachrichten senden funktioniert
+□ Nachrichten werden angezeigt
+□ Eigene Nachrichten sind rechts (gold)
+□ Andere Nachrichten sind links (weiß)
+□ Auto-Refresh alle 5 Sekunden
+□ Letzte 20 Nachrichten sichtbar
+
+RADIO:
+□ Radio-Button zeigt "RADIO STARTEN"
+□ Klick auf Radio startet Musik
+□ Button ändert sich zu "RADIO PAUSE"
+□ Aktueller Song wird angezeigt
+□ Play/Pause bei einzelnen Songs
+□ Nur Winnie sieht "Musik hochladen"
+□ Nur Winnie kann Musik löschen
+
+MUSIK HOCHLADEN (nur Winnie):
+□ Google Drive Link einfügen
+□ Song-Name eingeben
+□ "Musik hinzufügen" funktioniert
+□ Neuer Song erscheint in Liste
+□ Song kann abgespielt werden
+□ Song kann gelöscht werden
+
+KALENDER:
+□ Aktueller Monat wird angezeigt
+□ Heute ist markiert (gold)
+□ Vor/Zurück Navigation funktioniert
+□ Klick auf Tag öffnet Notiz-Modal
+□ Neue Notiz schreiben funktioniert
+□ Notiz wird gespeichert
+□ Tag mit Notiz zeigt 📝
+□ Notiz bearbeiten funktioniert
+□ Notiz löschen funktioniert
+□ Nur Ersteller + Winnie können löschen
+
+DESIGN:
+□ Römisches Design (Gold & Braun)
+□ Times New Roman Schrift
+□ "Winnie mfg" unten in Containern
+□ Responsive auf Handy
+□ Buttons funktionieren
+□ Tabs wechseln korrekt
+
+OFFLINE-FUNKTIONALITÄT:
+□ App funktioniert ohne Internet
+□ Daten bleiben nach Browser-Neustart
+□ LocalStorage wird genutzt
+□ Keine Fehler in Console
+
+HANDY-SPEZIFISCH:
+□ App öffnet sich auf Handy
+□ Touch-Bedienung funktioniert
+□ Keine Zoom-Probleme
+□ Tastatur verdeckt nichts
+□ Buttons sind groß genug
+
+========================================
+BEKANNTE EINSCHRÄNKUNGEN:
+========================================
+
+✓ Musik-Links benötigen Internet
+✓ Jedes Gerät hat eigene Daten
+✓ Keine automatische Synchronisation
+✓ Keine Backup-Funktion
+✓ Nur Chrome Browser empfohlen
+
+========================================
+BEI PROBLEMEN:
+========================================
+
+1. Browser-Cache leeren
+2. App neu laden
+3. Chrome Browser verwenden
+4. Handy neu starten
+5. Datei neu herunterladen
+
+========================================
+
+Viel Erfolg beim Testen!
+
+Winnie mfg

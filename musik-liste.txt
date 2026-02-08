@@ -1,0 +1,8 @@
+﻿const winnieMusikOrdner = [
+            'musik/Liebe_an_die_Sonne_20251029_1645.mp3',
+            'musik/Winnie_ist_nicht_nur_20251031_0613.mp3',
+            'musik/Winnie_ist_wieder_da_20250913_0943.mp3',
+            'musik/Winnie_macht_die_Klappe_auf_20251029_1735.mp3',
+            'musik/Winnie_mchte_was_20251101_0631.mp3',
+            'musik/Winnie_will_was_sagen_20251029_1735.mp3'
+        ];

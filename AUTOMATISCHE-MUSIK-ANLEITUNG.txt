@@ -1,0 +1,206 @@
+========================================
+  AUTOMATISCHE MUSIK - ANLEITUNG
+========================================
+
+🎉 NEUE FUNKTION: Musik wird automatisch geladen!
+
+Wenn du als Winnie einloggst, lädt die App automatisch
+alle MP3-Dateien aus dem "musik" Ordner!
+
+========================================
+SETUP (EINMALIG):
+========================================
+
+SCHRITT 1: Musik-Ordner erstellen
+----------------------------------
+Der Ordner "musik" wurde bereits erstellt:
+Winnie-App/musik/
+
+SCHRITT 2: Musik kopieren
+--------------------------
+Kopiere deine MP3-Dateien aus:
+  G:\Meine Ablage\WinnieMusik
+
+Nach:
+  G:\Meine Ablage\Winnie-LagerVerwaltung-App\Winnie-App\musik\
+
+SO GEHTS:
+1. Öffne Windows Explorer
+2. Gehe zu: G:\Meine Ablage\WinnieMusik
+3. Wähle alle MP3-Dateien aus (Strg+A)
+4. Kopieren (Strg+C)
+5. Gehe zu: G:\Meine Ablage\Winnie-LagerVerwaltung-App\Winnie-App\musik
+6. Einfügen (Strg+V)
+7. FERTIG!
+
+SCHRITT 3: Datei-Namen in App eintragen
+----------------------------------------
+Öffne DruidenApp.html in einem Text-Editor und suche:
+
+const winnieMusikOrdner = [
+    'musik/Winnie_mchte_was_20251101_0631.mp3',
+    'musik/Winnie_will_was_sagen_20251029_1735.mp3',
+    ...
+];
+
+Ersetze die Datei-Namen mit deinen eigenen MP3-Dateien!
+
+ODER: Nutze das automatische Skript (siehe unten)
+
+========================================
+AUTOMATISCHES SETUP (EMPFOHLEN):
+========================================
+
+Ich erstelle dir ein PowerShell-Skript, das:
+1. Alle MP3s aus WinnieMusik kopiert
+2. Die Datei-Namen automatisch in die App einträgt
+3. Alles fertig macht!
+
+Siehe: MUSIK-SETUP.ps1
+
+========================================
+WIE ES FUNKTIONIERT:
+========================================
+
+1. Du öffnest DruidenApp.html
+2. Login als Winnie
+3. App prüft ob Musik schon geladen wurde
+4. Wenn NEIN: Lädt automatisch alle MP3s aus "musik" Ordner
+5. Wenn JA: Überspringt (Musik ist schon da)
+6. Du klickst einfach Play!
+
+VORTEILE:
+✅ Einmalig einrichten
+✅ Dann immer automatisch
+✅ Kein Upload mehr nötig
+✅ Funktioniert offline
+✅ Sehr schnell
+
+========================================
+STRUKTUR:
+========================================
+
+Winnie-App/
+├── DruidenApp.html          ← Hauptapp
+├── musik/                   ← Deine Musik hier!
+│   ├── Song1.mp3
+│   ├── Song2.mp3
+│   └── Song3.mp3
+└── README.txt
+
+========================================
+MUSIK HINZUFÜGEN/ÄNDERN:
+========================================
+
+NEUE SONGS HINZUFÜGEN:
+1. Kopiere neue MP3 in "musik" Ordner
+2. Öffne DruidenApp.html in Text-Editor
+3. Füge Datei-Name zur Liste hinzu:
+   'musik/Neuer_Song.mp3',
+4. Speichern
+5. In Browser: localStorage löschen (F12 → Application → Local Storage → Clear)
+6. App neu laden
+7. Login als Winnie
+8. Neue Songs werden geladen!
+
+SONGS ENTFERNEN:
+1. Lösche MP3 aus "musik" Ordner
+2. Entferne Zeile aus winnieMusikOrdner Liste
+3. Speichern
+4. localStorage löschen
+5. App neu laden
+
+ODER: Nutze die Upload-Funktion in der App!
+
+========================================
+WICHTIG:
+========================================
+
+⚠️ DATEI-NAMEN MÜSSEN EXAKT ÜBEREINSTIMMEN!
+   - Groß-/Kleinschreibung beachten
+   - Keine Leerzeichen (nutze _ stattdessen)
+   - Keine Umlaute (ä → ae, ö → oe, ü → ue)
+
+⚠️ NUR MP3, WAV, OGG FUNKTIONIEREN!
+   - Andere Formate werden ignoriert
+
+⚠️ PFAD MUSS STIMMEN!
+   - Immer: musik/Dateiname.mp3
+   - Nicht: Musik/... oder MUSIK/...
+
+========================================
+BEISPIEL:
+========================================
+
+DEINE DATEIEN:
+G:\Meine Ablage\WinnieMusik\
+├── Mein_Lieblingslied.mp3
+├── Guten_Morgen_Song.mp3
+└── Party_Musik.mp3
+
+KOPIERE NACH:
+Winnie-App\musik\
+├── Mein_Lieblingslied.mp3
+├── Guten_Morgen_Song.mp3
+└── Party_Musik.mp3
+
+IN APP EINTRAGEN:
+const winnieMusikOrdner = [
+    'musik/Mein_Lieblingslied.mp3',
+    'musik/Guten_Morgen_Song.mp3',
+    'musik/Party_Musik.mp3'
+];
+
+FERTIG! Beim nächsten Login werden alle 3 Songs
+automatisch geladen!
+
+========================================
+TROUBLESHOOTING:
+========================================
+
+❌ "Keine lokalen Musik-Dateien gefunden"
+   → Prüfe ob Dateien im "musik" Ordner sind
+   → Prüfe ob Datei-Namen in App stimmen
+   → Prüfe Groß-/Kleinschreibung
+
+❌ "Song existiert bereits"
+   → Musik wurde schon geladen
+   → Ist normal beim 2. Login
+   → Kein Problem!
+
+❌ "Datei nicht gefunden"
+   → Datei-Name in App stimmt nicht
+   → Prüfe Schreibweise
+   → Prüfe ob Datei wirklich da ist
+
+❌ Songs werden nicht geladen
+   → Öffne Console (F12)
+   → Schau nach Fehler-Meldungen
+   → Prüfe ob du als Winnie eingeloggt bist
+
+========================================
+RESET (MUSIK NEU LADEN):
+========================================
+
+Wenn du Musik neu laden möchtest:
+
+1. Öffne App
+2. Drücke F12 (Console)
+3. Gehe zu: Application → Local Storage
+4. Finde: druiden_winnie_musik_loaded
+5. Lösche diesen Eintrag
+6. Lade Seite neu (F5)
+7. Login als Winnie
+8. Musik wird neu geladen!
+
+ODER:
+
+In Console eingeben:
+localStorage.removeItem('druiden_winnie_musik_loaded');
+location.reload();
+
+========================================
+
+Viel Spaß mit automatischer Musik! 🎵
+
+Winnie mfg

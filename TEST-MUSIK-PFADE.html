@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Musik-Pfade Test</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Times New Roman', serif;
+            background: linear-gradient(135deg, #8B4513 0%, #A0522D 50%, #8B4513 100%);
+            padding: 20px;
+            min-height: 100vh;
+        }
+        .container {
+            background: linear-gradient(145deg, #F5DEB3 0%, #DEB887 50%, #D2B48C 100%);
+            border-radius: 20px;
+            padding: 30px;
+            max-width: 800px;
+            margin: 0 auto;
+            box-shadow: 0 15px 30px rgba(0,0,0,0.5);
+            border: 4px solid #D4AF37;
+        }
+        h1 {
+            color: #8B4513;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        .test-item {
+            background: white;
+            padding: 15px;
+            margin-bottom: 15px;
+            border-radius: 10px;
+            border: 2px solid #D4AF37;
+        }
+        .success { border-color: #228B22; background: #f0fff0; }
+        .error { border-color: #DC143C; background: #fff0f0; }
+        .song-name {
+            font-weight: bold;
+            color: #8B4513;
+            margin-bottom: 5px;
+        }
+        .path {
+            font-family: monospace;
+            font-size: 12px;
+            color: #666;
+            margin-bottom: 5px;
+        }
+        .status {
+            font-weight: bold;
+            margin-top: 5px;
+        }
+        .btn {
+            width: 100%;
+            padding: 15px;
+            background: linear-gradient(145deg, #D4AF37 0%, #FFD700 100%);
+            color: #8B4513;
+            border: 3px solid #8B4513;
+            border-radius: 12px;
+            font-size: 18px;
+            font-weight: bold;
+            cursor: pointer;
+            font-family: 'Times New Roman', serif;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🎵 Musik-Pfade Test</h1>
+        <p style="text-align: center; color: #8B4513; margin-bottom: 20px;">
+            Teste ob alle Musik-Dateien gefunden werden
+        </p>
+        <div id="results"></div>
+        <button class="btn" onclick="testAll()">🔄 Erneut testen</button>
+        <button class="btn" onclick="window.location.href='DruidenApp.html'" style="background: linear-gradient(145deg, #228B22 0%, #32CD32 100%); color: white; border-color: #006400;">
+            ✅ Zur App
+        </button>
+    </div>
+
+    <script>
+        const songs = [
+            'musik/Liebe_an_die_Sonne_20251029_1645.mp3',
+            'musik/Winnie_ist_nicht_nur_20251031_0613.mp3',
+            'musik/Winnie_ist_wieder_da_20250913_0943.mp3',
+            'musik/Winnie_macht_die_Klappe_auf_20251029_1735.mp3',
+            'musik/Winnie_mchte_was_20251101_0631.mp3',
+            'musik/Winnie_will_was_sagen_20251029_1735.mp3'
+        ];
+
+        function testAll() {
+            const results = document.getElementById('results');
+            results.innerHTML = '<p style="text-align: center; color: #8B4513;">Teste Dateien...</p>';
+            
+            let successCount = 0;
+            let errorCount = 0;
+            
+            songs.forEach((path, index) => {
+                const songName = path.split('/').pop().replace(/\.[^/.]+$/, "").replace(/_/g, ' ');
+                
+                fetch(path, { method: 'HEAD' })
+                    .then(response => {
+                        const div = document.createElement('div');
+                        div.className = 'test-item';
+                        
+                        if (response.ok) {
+                            div.classList.add('success');
+                            div.innerHTML = `
+                                <div class="song-name">✅ ${songName}</div>
+                                <div class="path">Pfad: ${path}</div>
+                                <div class="status" style="color: #228B22;">Datei gefunden!</div>
+                            `;
+                            successCount++;
+                        } else {
+                            div.classList.add('error');
+                            div.innerHTML = `
+                                <div class="song-name">❌ ${songName}</div>
+                                <div class="path">Pfad: ${path}</div>
+                                <div class="status" style="color: #DC143C;">Datei nicht gefunden! (${response.status})</div>
+                            `;
+                            errorCount++;
+                        }
+                        
+                        results.appendChild(div);
+                        
+                        // Zusammenfassung am Ende
+                        if (successCount + errorCount === songs.length) {
+                            const summary = document.createElement('div');
+                            summary.className = 'test-item';
+                            summary.style.background = successCount === songs.length ? '#f0fff0' : '#fff0f0';
+                            summary.style.borderColor = successCount === songs.length ? '#228B22' : '#DC143C';
+                            summary.innerHTML = `
+                                <h3 style="color: #8B4513; margin-bottom: 10px;">Zusammenfassung:</h3>
+                                <div style="color: #228B22;">✅ Gefunden: ${successCount} von ${songs.length}</div>
+                                <div style="color: #DC143C;">❌ Fehlt: ${errorCount} von ${songs.length}</div>
+                                ${errorCount > 0 ? `
+                                    <div style="margin-top: 15px; padding: 10px; background: #fff; border-radius: 5px;">
+                                        <strong>Problem:</strong><br>
+                                        Musik-Dateien wurden nicht gefunden!<br><br>
+                                        <strong>Lösung:</strong><br>
+                                        1. Prüfe ob "musik" Ordner neben dieser Datei ist<br>
+                                        2. Prüfe ob MP3-Dateien im musik/ Ordner sind<br>
+                                        3. Öffne diese Datei aus dem richtigen Ordner<br>
+                                        4. Nicht aus Downloads oder Desktop öffnen!
+                                    </div>
+                                ` : `
+                                    <div style="margin-top: 15px; padding: 10px; background: #fff; border-radius: 5px; color: #228B22;">
+                                        <strong>🎉 PERFEKT!</strong><br>
+                                        Alle Musik-Dateien gefunden!<br>
+                                        Die App sollte jetzt funktionieren!
+                                    </div>
+                                `}
+                            `;
+                            results.appendChild(summary);
+                        }
+                    })
+                    .catch(error => {
+                        const div = document.createElement('div');
+                        div.className = 'test-item error';
+                        div.innerHTML = `
+                            <div class="song-name">❌ ${songName}</div>
+                            <div class="path">Pfad: ${path}</div>
+                            <div class="status" style="color: #DC143C;">Fehler: ${error.message}</div>
+                        `;
+                        errorCount++;
+                        results.appendChild(div);
+                    });
+            });
+        }
+
+        // Automatisch beim Laden testen
+        window.onload = testAll;
+    </script>
+</body>
+</html>

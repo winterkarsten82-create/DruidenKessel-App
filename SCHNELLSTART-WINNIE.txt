@@ -1,0 +1,66 @@
+========================================
+  SCHNELLSTART FÜR CHEF WINNIE
+========================================
+
+🎵 MUSIK AUS WINNIEMUSIK-ORDNER LADEN:
+
+1. Öffne DruidenApp.html
+2. Login: Winnie / BinIchGut
+3. Klicke: Radio Tab
+4. Klicke: "Durchsuchen" (unter "Methode 1")
+5. Gehe zu: G:\Meine Ablage\WinnieMusik
+6. Wähle MP3-Dateien aus (Strg+A für alle)
+7. Klicke: "Öffnen"
+8. Klicke: "Lokale Musik hinzufügen"
+9. Warte bis "✅ X Song(s) hinzugefügt!"
+10. Klicke Play bei einem Song
+11. FERTIG! 🎉
+
+========================================
+WICHTIG:
+========================================
+
+✅ NUR DU kannst Musik hochladen
+✅ NUR DU kannst Musik löschen
+✅ ALLE können Radio hören
+✅ Musik bleibt im Browser gespeichert
+✅ Funktioniert offline
+
+========================================
+RADIO STARTEN:
+========================================
+
+1. Klicke "RADIO STARTEN" (großer Button oben)
+2. Musik spielt automatisch
+3. Klicke "RADIO PAUSE" zum Stoppen
+
+ODER:
+
+1. Klicke "Play" bei einzelnem Song
+2. Song wird abgespielt
+3. Klicke "Pause" zum Stoppen
+
+========================================
+MEHRERE SONGS AUF EINMAL:
+========================================
+
+1. "Durchsuchen" klicken
+2. Strg+A drücken (alle auswählen)
+3. Oder Strg gedrückt halten + einzeln anklicken
+4. "Öffnen"
+5. "Lokale Musik hinzufügen"
+6. Alle werden nacheinander geladen!
+
+========================================
+PROBLEME?
+========================================
+
+Siehe: WINNIE-MUSIK-ANLEITUNG.txt
+
+Oder: F12 drücken → Console → Fehler lesen
+
+========================================
+
+Los geht's! 🚀
+
+Winnie mfg

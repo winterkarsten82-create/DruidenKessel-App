@@ -1,0 +1,178 @@
+========================================
+  WINNIE - MUSIK AUS LOKALEM ORDNER
+========================================
+
+NUR FÜR CHEF WINNIE!
+
+So fügst du Musik aus deinem WinnieMusik-Ordner hinzu:
+
+========================================
+METHODE 1: LOKALE DATEIEN (EMPFOHLEN)
+========================================
+
+SCHRITT-FÜR-SCHRITT:
+
+1. Öffne DruidenApp.html im Browser
+2. Login als Winnie (Passwort: BinIchGut)
+3. Gehe zu Radio Tab
+4. Scrolle nach unten zu "Chef Winnie - Musik hochladen"
+5. Klicke auf "Durchsuchen" / "Choose Files"
+6. Navigiere zu: G:\Meine Ablage\WinnieMusik
+7. Wähle eine oder mehrere MP3-Dateien aus
+8. Klicke "Öffnen"
+9. Klicke "Lokale Musik hinzufügen"
+10. FERTIG! Musik ist jetzt in der App!
+
+VORTEILE:
+✅ Funktioniert sofort
+✅ Kein Internet nötig
+✅ Keine Größen-Beschränkung
+✅ Mehrere Dateien auf einmal
+✅ Musik wird in Browser gespeichert
+
+NACHTEILE:
+⚠️ Funktioniert nur auf deinem PC
+⚠️ Andere Nutzer müssen Musik neu laden
+⚠️ Browser-Speicher kann voll werden
+
+========================================
+METHODE 2: GOOGLE DRIVE LINK
+========================================
+
+Wenn du möchtest, dass andere die Musik auch haben:
+
+1. Lade MP3 auf Google Drive hoch
+2. Rechtsklick → "Teilen"
+3. "Jeder mit dem Link" wählen
+4. Link kopieren
+5. In App einfügen (Methode 2)
+6. Song-Name eingeben
+7. "Link hinzufügen"
+
+VORTEILE:
+✅ Alle Nutzer können Musik hören
+✅ Musik ist überall verfügbar
+✅ Kein Browser-Speicher nötig
+
+NACHTEILE:
+⚠️ Benötigt Internet
+⚠️ Google Drive kann langsam sein
+⚠️ Link kann ablaufen
+
+========================================
+WIE ES FUNKTIONIERT:
+========================================
+
+RADIO-MODUS:
+- Nur DU (Winnie) kannst Musik hochladen
+- Nur DU kannst Musik löschen
+- ALLE können Radio hören (Play/Pause)
+- ALLE sehen die gleiche Musik-Liste
+
+LOKALE DATEIEN:
+- Werden als Base64 im Browser gespeichert
+- Bleiben auch nach Browser-Neustart
+- Funktionieren offline
+- Nur auf deinem PC verfügbar
+
+WENN ANDERE DIE MUSIK HABEN SOLLEN:
+- Nutze Google Drive Links (Methode 2)
+- Oder teile die komplette App-Datei
+- Oder nutze Export/Import (wenn implementiert)
+
+========================================
+EMPFOHLENE VORGEHENSWEISE:
+========================================
+
+FÜR DICH (PC):
+1. Nutze lokale Dateien aus WinnieMusik
+2. Schnell & einfach
+3. Funktioniert sofort
+
+FÜR TEAM (Handys):
+1. Lade wichtige Songs auf Google Drive
+2. Teile Links in der App
+3. Alle können hören
+
+ODER:
+1. Lade alle Songs lokal
+2. Exportiere App-Daten (wenn Feature da)
+3. Teile mit Team
+
+========================================
+UNTERSTÜTZTE FORMATE:
+========================================
+
+✅ MP3 (.mp3) - EMPFOHLEN
+✅ WAV (.wav)
+✅ OGG (.ogg)
+✅ M4A (.m4a)
+✅ AAC (.aac)
+
+❌ FLAC (zu groß)
+❌ WMA (nicht unterstützt)
+❌ APE (nicht unterstützt)
+
+========================================
+TIPPS:
+========================================
+
+💡 TIPP 1: Mehrere Dateien auf einmal
+   - Halte Strg gedrückt
+   - Klicke mehrere MP3s an
+   - Alle werden auf einmal hochgeladen
+
+💡 TIPP 2: Browser-Speicher
+   - Chrome: ~10 MB pro Domain
+   - Edge: ~10 MB pro Domain
+   - Wenn voll: Alte Songs löschen
+
+💡 TIPP 3: Datei-Namen
+   - Werden automatisch als Song-Name verwendet
+   - Datei-Endung wird entfernt
+   - Beispiel: "Mein_Song.mp3" → "Mein_Song"
+
+💡 TIPP 4: Sortierung
+   - Neueste Songs oben
+   - Älteste Songs unten
+   - Keine manuelle Sortierung
+
+========================================
+PROBLEME?
+========================================
+
+❌ "Keine Audio-Datei"
+   → Nur MP3, WAV, OGG funktionieren
+   → Prüfe Datei-Format
+
+❌ "Fehler beim Laden"
+   → Datei ist beschädigt
+   → Datei ist zu groß (>50 MB)
+   → Browser-Speicher ist voll
+
+❌ "Musik spielt nicht"
+   → Siehe MUSIK-DEBUG.txt
+   → Öffne Console (F12)
+   → Prüfe Fehler-Meldungen
+
+========================================
+BEISPIEL-WORKFLOW:
+========================================
+
+1. Öffne DruidenApp.html
+2. Login als Winnie
+3. Radio Tab
+4. "Durchsuchen" klicken
+5. G:\Meine Ablage\WinnieMusik öffnen
+6. Alle MP3s auswählen (Strg+A)
+7. "Öffnen"
+8. "Lokale Musik hinzufügen"
+9. Warte bis alle geladen sind
+10. Klicke Play bei einem Song
+11. FERTIG! Radio läuft!
+
+========================================
+
+Viel Spaß mit deiner Musik! 🎵
+
+Winnie mfg

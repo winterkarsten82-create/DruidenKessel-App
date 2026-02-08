@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>localStorage Reset</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        body {
+            font-family: 'Times New Roman', serif;
+            background: linear-gradient(135deg, #8B4513 0%, #A0522D 50%, #8B4513 100%);
+            padding: 20px;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .container {
+            background: linear-gradient(145deg, #F5DEB3 0%, #DEB887 50%, #D2B48C 100%);
+            border-radius: 20px;
+            padding: 40px;
+            max-width: 600px;
+            box-shadow: 0 15px 30px rgba(0,0,0,0.5);
+            border: 4px solid #D4AF37;
+            text-align: center;
+        }
+        
+        h1 {
+            color: #8B4513;
+            margin-bottom: 20px;
+            font-size: 32px;
+        }
+        
+        p {
+            color: #8B4513;
+            margin-bottom: 20px;
+            font-size: 18px;
+            line-height: 1.6;
+        }
+        
+        .btn {
+            width: 100%;
+            padding: 20px;
+            background: linear-gradient(145deg, #DC143C 0%, #FF6347 100%);
+            color: white;
+            border: 3px solid #8B0000;
+            border-radius: 12px;
+            font-size: 20px;
+            font-weight: bold;
+            margin-bottom: 15px;
+            cursor: pointer;
+            font-family: 'Times New Roman', serif;
+        }
+        
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.4);
+        }
+        
+        .btn-green {
+            background: linear-gradient(145deg, #228B22 0%, #32CD32 100%);
+            border-color: #006400;
+        }
+        
+        .status {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            border: 2px solid #D4AF37;
+            margin-top: 20px;
+            font-family: monospace;
+            text-align: left;
+            max-height: 300px;
+            overflow-y: auto;
+        }
+        
+        .success {
+            color: #228B22;
+            font-weight: bold;
+        }
+        
+        .error {
+            color: #DC143C;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🔧 localStorage Reset</h1>
+        <p>Lösche alle gespeicherten Daten und starte neu!</p>
+        
+        <button class="btn" onclick="resetLocalStorage()">
+            🗑️ ALLES LÖSCHEN
+        </button>
+        
+        <button class="btn btn-green" onclick="window.location.href='DruidenApp.html'">
+            ✅ ZUR APP
+        </button>
+        
+        <div id="status" class="status" style="display: none;"></div>
+    </div>
+
+    <script>
+        function log(message, isError = false) {
+            const status = document.getElementById('status');
+            status.style.display = 'block';
+            const line = document.createElement('div');
+            line.className = isError ? 'error' : 'success';
+            line.textContent = message;
+            status.appendChild(line);
+            console.log(message);
+        }
+
+        function resetLocalStorage() {
+            const status = document.getElementById('status');
+            status.innerHTML = '';
+            status.style.display = 'block';
+            
+            log('=== RESET GESTARTET ===');
+            
+            // Zeige was gelöscht wird
+            const keys = Object.keys(localStorage);
+            log('Gefundene Einträge: ' + keys.length);
+            
+            keys.forEach(key => {
+                log('Lösche: ' + key);
+            });
+            
+            // Lösche alles
+            localStorage.clear();
+            
+            log('');
+            log('✅ ALLES GELÖSCHT!', false);
+            log('');
+            log('Nächste Schritte:');
+            log('1. Klicke "ZUR APP"');
+            log('2. Login als Winnie');
+            log('3. Warte 2-3 Sekunden');
+            log('4. Alle 6 Songs werden geladen!');
+            log('');
+            log('=== FERTIG ===');
+            
+            // Zeige Erfolgs-Meldung
+            setTimeout(() => {
+                alert('✅ localStorage gelöscht!\n\nKlicke jetzt "ZUR APP" und melde dich als Winnie an.\n\nAlle 6 Songs werden automatisch geladen!');
+            }, 500);
+        }
+        
+        // Zeige beim Laden was im localStorage ist
+        window.onload = function() {
+            const keys = Object.keys(localStorage);
+            if (keys.length > 0) {
+                log('Aktuell im localStorage:');
+                keys.forEach(key => {
+                    const value = localStorage.getItem(key);
+                    if (key === 'druiden_musik') {
+                        try {
+                            const musik = JSON.parse(value);
+                            log('- ' + key + ': ' + musik.length + ' Songs');
+                        } catch(e) {
+                            log('- ' + key + ': ' + value.length + ' Zeichen');
+                        }
+                    } else {
+                        log('- ' + key);
+                    }
+                });
+                log('');
+                log('Klicke "ALLES LÖSCHEN" um neu zu starten!');
+            } else {
+                log('localStorage ist bereits leer!');
+                log('');
+                log('Klicke "ZUR APP" und melde dich an!');
+            }
+        };
+    </script>
+</body>
+</html>

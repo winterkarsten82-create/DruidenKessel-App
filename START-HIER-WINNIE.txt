@@ -1,0 +1,94 @@
+========================================
+  WINNIE - START HIER! 🎵
+========================================
+
+AUTOMATISCHE MUSIK IN 3 SCHRITTEN:
+
+========================================
+SCHRITT 1: MUSIK KOPIEREN
+========================================
+
+OPTION A: Automatisch (EMPFOHLEN)
+----------------------------------
+1. Rechtsklick auf: MUSIK-SETUP.ps1
+2. "Mit PowerShell ausführen"
+3. Warte bis fertig
+4. Fertig! Musik ist kopiert!
+
+OPTION B: Manuell
+-----------------
+1. Öffne: G:\Meine Ablage\WinnieMusik
+2. Wähle alle MP3s aus (Strg+A)
+3. Kopieren (Strg+C)
+4. Öffne: Winnie-App\musik
+5. Einfügen (Strg+V)
+6. Fertig!
+
+========================================
+SCHRITT 2: APP ANPASSEN (nur einmal!)
+========================================
+
+Wenn du MUSIK-SETUP.ps1 benutzt hast:
+--------------------------------------
+1. Öffne: musik-liste.txt
+2. Kopiere den Inhalt (Strg+A, Strg+C)
+3. Öffne: DruidenApp.html mit Notepad
+4. Suche: const winnieMusikOrdner = [
+5. Ersetze die Liste mit kopiertem Inhalt
+6. Speichern (Strg+S)
+7. Fertig!
+
+Wenn du manuell kopiert hast:
+------------------------------
+1. Öffne: DruidenApp.html mit Notepad
+2. Suche: const winnieMusikOrdner = [
+3. Trage deine MP3-Dateinamen ein:
+   'musik/Mein_Song.mp3',
+   'musik/Anderer_Song.mp3',
+4. Speichern (Strg+S)
+5. Fertig!
+
+========================================
+SCHRITT 3: APP STARTEN
+========================================
+
+1. Öffne: DruidenApp.html (Doppelklick)
+2. Login: Winnie / BinIchGut
+3. Warte 2 Sekunden
+4. Musik wird automatisch geladen!
+5. Klicke "RADIO STARTEN"
+6. FERTIG! 🎉
+
+========================================
+DAS WAR'S!
+========================================
+
+Ab jetzt:
+✅ Musik ist immer da beim Login
+✅ Kein Upload mehr nötig
+✅ Einfach Play drücken!
+
+========================================
+NEUE MUSIK HINZUFÜGEN:
+========================================
+
+1. Kopiere neue MP3 in "musik" Ordner
+2. Füge Datei-Name in DruidenApp.html hinzu
+3. Lösche Browser-Daten (F12 → Application → Clear)
+4. App neu laden
+5. Login als Winnie
+6. Neue Musik wird geladen!
+
+========================================
+PROBLEME?
+========================================
+
+Siehe: AUTOMATISCHE-MUSIK-ANLEITUNG.txt
+
+Oder: F12 drücken → Console → Fehler lesen
+
+========================================
+
+Los geht's! 🚀
+
+Winnie mfg
