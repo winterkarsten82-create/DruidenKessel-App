@@ -1,0 +1,200 @@
+========================================
+  INSTALLATION AUF HANDY
+  Schritt-für-Schritt
+========================================
+
+📱 FÜR OPPO / ANDROID HANDYS
+
+========================================
+METHODE 1: USB-KABEL (EMPFOHLEN)
+========================================
+
+SCHRITT 1: Vorbereitung am Computer
+------------------------------------
+1. USB-Stick an Computer anschließen
+2. Öffne USB-Stick im Windows Explorer
+3. Kopiere ALLE Dateien auf USB:
+   - DruidenApp.html
+   - musik/ (ganzer Ordner!)
+   - README.txt
+4. USB sicher entfernen (Rechtsklick → Auswerfen)
+
+SCHRITT 2: Auf Handy kopieren
+------------------------------
+1. USB-Stick an Handy anschließen
+   (mit USB-OTG Adapter wenn nötig)
+2. Öffne "Dateien" oder "Datei-Manager" App
+3. Tippe auf "USB" oder "USB-Speicher"
+4. Markiere ALLE Dateien:
+   - Lange auf erste Datei drücken
+   - Dann andere antippen
+   - Oder "Alle auswählen"
+5. Tippe auf "Kopieren" oder Kopier-Symbol
+6. Gehe zu "Interner Speicher"
+7. Öffne "Downloads" Ordner
+8. Tippe auf "Einfügen"
+9. Warte bis fertig (22 MB)
+
+SCHRITT 3: App öffnen
+----------------------
+1. Öffne Chrome Browser
+2. Tippe auf Menü (3 Punkte)
+3. Tippe auf "Downloads"
+4. Suche "DruidenApp.html"
+5. Tippe darauf
+6. App öffnet sich!
+
+SCHRITT 4: Zum Startbildschirm (optional)
+------------------------------------------
+1. In der App: Chrome Menü (3 Punkte)
+2. Tippe "Zum Startbildschirm hinzufügen"
+3. Tippe "Hinzufügen"
+4. App-Icon erscheint auf Startbildschirm
+5. FERTIG! 🎉
+
+========================================
+METHODE 2: GOOGLE DRIVE
+========================================
+
+SCHRITT 1: Hochladen (am Computer)
+-----------------------------------
+1. Öffne Google Drive im Browser
+2. Klicke "Neu" → "Ordner hochladen"
+3. Wähle den kompletten USB-FERTIG Ordner
+4. Warte bis Upload fertig
+5. Rechtsklick auf Ordner → "Teilen"
+6. "Jeder mit dem Link" wählen
+7. Link kopieren
+
+SCHRITT 2: Herunterladen (auf Handy)
+-------------------------------------
+1. Öffne Link auf Handy
+2. Google Drive App öffnet sich
+3. Tippe auf Download-Symbol
+4. Warte bis fertig
+5. Dateien sind in Downloads
+
+SCHRITT 3: App öffnen
+----------------------
+1. Öffne "Dateien" App
+2. Gehe zu "Downloads"
+3. Öffne "USB-FERTIG" Ordner
+4. Tippe auf "DruidenApp.html"
+5. Wähle "Chrome"
+6. App öffnet sich!
+
+========================================
+METHODE 3: WHATSAPP
+========================================
+
+Für kleine Gruppen:
+
+SCHRITT 1: Senden (am Computer)
+--------------------------------
+1. Öffne WhatsApp Web
+2. Wähle Gruppe oder Kontakt
+3. Klicke auf Büroklammer
+4. Wähle "Dokument"
+5. Wähle DruidenApp.html
+6. Senden
+7. Wiederhole für musik/ Ordner
+   (als ZIP komprimieren wenn zu groß)
+
+SCHRITT 2: Empfangen (auf Handy)
+---------------------------------
+1. Öffne WhatsApp
+2. Tippe auf Nachricht
+3. Tippe auf Datei
+4. Tippe "Herunterladen"
+5. Warte bis fertig
+
+SCHRITT 3: App öffnen
+----------------------
+1. In WhatsApp: Tippe auf Datei
+2. Tippe "Öffnen"
+3. Wähle "Chrome"
+4. App öffnet sich!
+
+========================================
+WICHTIG:
+========================================
+
+⚠️ MUSIK-ORDNER MUSS DABEI SEIN!
+
+Struktur muss so sein:
+Downloads/
+├── DruidenApp.html
+└── musik/
+    ├── Song1.mp3
+    ├── Song2.mp3
+    └── ...
+
+Wenn musik/ Ordner fehlt:
+❌ Automatische Musik funktioniert nicht
+❌ Winnie muss manuell hochladen
+
+========================================
+ERSTE SCHRITTE:
+========================================
+
+1. App öffnen
+2. Login:
+   - Winnie: Winnie / BinIchGut
+   - Neu: "Neues Konto" klicken
+3. Als Winnie: Warte 2 Sekunden
+   → Musik wird automatisch geladen!
+4. Klicke "RADIO STARTEN"
+5. Musik spielt! 🎵
+
+========================================
+PROBLEME?
+========================================
+
+❌ "Datei kann nicht geöffnet werden"
+   → Nutze Chrome Browser
+   → Andere Browser funktionieren nicht
+
+❌ "Musik wird nicht geladen"
+   → Prüfe ob musik/ Ordner dabei ist
+   → Prüfe ob Struktur stimmt
+   → Öffne Console (Chrome Menü → Mehr Tools → Entwicklertools)
+
+❌ "App lädt nicht"
+   → Lösche Browser-Cache
+   → Versuche erneut
+   → Lade Datei neu herunter
+
+❌ "Keine Berechtigung"
+   → Gehe zu Einstellungen → Apps → Chrome
+   → Erlaube "Speicher" Zugriff
+   → Versuche erneut
+
+========================================
+TIPPS:
+========================================
+
+💡 TIPP 1: Zum Startbildschirm
+   - Macht App schneller zugänglich
+   - Sieht aus wie echte App
+   - Funktioniert offline
+
+💡 TIPP 2: Offline-Nutzung
+   - Nach erstem Öffnen funktioniert offline
+   - Daten bleiben auf Handy
+   - Kein Internet nötig
+
+💡 TIPP 3: Mehrere Geräte
+   - Kopiere auf alle Handys
+   - Jedes hat eigene Daten
+   - Nicht synchronisiert
+
+💡 TIPP 4: Updates
+   - Einfach neue Version kopieren
+   - Alte überschreiben
+   - Daten bleiben erhalten
+
+========================================
+
+Viel Erfolg! 📱
+
+Winnie mfg

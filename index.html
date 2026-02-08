@@ -1,0 +1,1161 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="theme-color" content="#8B4513">
+    <title>Druidenkessel - Chat, Radio & Kalender</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        body {
+            font-family: 'Times New Roman', 'Georgia', serif;
+            background: linear-gradient(135deg, #8B4513 0%, #A0522D 50%, #8B4513 100%);
+            padding: 10px;
+            min-height: 100vh;
+        }
+        
+        .container {
+            background: linear-gradient(145deg, #F5DEB3 0%, #DEB887 50%, #D2B48C 100%);
+            border-radius: 20px;
+            padding: 25px 20px 35px 20px;
+            margin-bottom: 15px;
+            box-shadow: 0 15px 30px rgba(0,0,0,0.5);
+            border: 4px solid #D4AF37;
+            position: relative;
+        }
+        
+        .container::after {
+            content: 'Winnie mfg';
+            position: absolute;
+            bottom: 8px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 12px;
+            font-weight: bold;
+            color: #8B4513;
+            letter-spacing: 2px;
+            font-style: italic;
+        }
+        
+        h1 {
+            text-align: center;
+            color: #8B4513;
+            margin-bottom: 20px;
+            font-size: 32px;
+            text-shadow: 2px 2px 4px rgba(212,175,55,0.5);
+        }
+        
+        h2 {
+            color: #8B4513;
+            margin-bottom: 15px;
+            font-size: 24px;
+            text-align: center;
+        }
+        
+        .btn {
+            width: 100%;
+            padding: 18px;
+            background: linear-gradient(145deg, #D4AF37 0%, #FFD700 100%);
+            color: #8B4513;
+            border: 3px solid #8B4513;
+            border-radius: 12px;
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 12px;
+            cursor: pointer;
+            font-family: 'Times New Roman', serif;
+        }
+        
+        .btn:active {
+            transform: scale(0.98);
+        }
+        
+        .btn-red {
+            background: linear-gradient(145deg, #DC143C 0%, #FF6347 100%);
+            color: white;
+            border-color: #8B0000;
+        }
+        
+        .btn-green {
+            background: linear-gradient(145deg, #228B22 0%, #32CD32 100%);
+            color: white;
+            border-color: #006400;
+        }
+        
+        input, textarea {
+            width: 100%;
+            padding: 15px;
+            border: 3px solid #8B4513;
+            border-radius: 10px;
+            font-size: 16px;
+            margin-bottom: 12px;
+            background: white;
+            color: #8B4513;
+            font-family: 'Times New Roman', serif;
+        }
+        
+        input:focus, textarea:focus {
+            outline: none;
+            border-color: #D4AF37;
+            box-shadow: 0 0 0 3px rgba(212, 175, 55, 0.3);
+        }
+        
+        .tabs {
+            display: flex;
+            margin-bottom: 15px;
+            background: linear-gradient(145deg, #F5DEB3 0%, #DEB887 50%, #D2B48C 100%);
+            border-radius: 15px;
+            overflow: hidden;
+            border: 4px solid #D4AF37;
+        }
+        
+        .tab {
+            flex: 1;
+            padding: 18px;
+            background: transparent;
+            border: none;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            color: #8B4513;
+            font-family: 'Times New Roman', serif;
+        }
+        
+        .tab.active {
+            background: linear-gradient(135deg, #D4AF37 0%, #FFD700 100%);
+        }
+        
+        .tab-content {
+            display: none;
+        }
+        
+        .tab-content.active {
+            display: block;
+        }
+        
+        .chat-container {
+            background: white;
+            border-radius: 15px;
+            height: 400px;
+            display: flex;
+            flex-direction: column;
+            border: 3px solid #D4AF37;
+        }
+        
+        .chat-messages {
+            flex: 1;
+            padding: 15px;
+            overflow-y: auto;
+            background: #FFF8DC;
+            border-radius: 12px 12px 0 0;
+        }
+        
+        .message {
+            margin-bottom: 12px;
+            padding: 12px;
+            border-radius: 12px;
+            max-width: 85%;
+            word-wrap: break-word;
+        }
+        
+        .message.own {
+            background: linear-gradient(135deg, #D4AF37 0%, #FFD700 100%);
+            color: #8B4513;
+            margin-left: auto;
+            text-align: right;
+            border: 2px solid #8B4513;
+        }
+        
+        .message.other {
+            background: white;
+            border: 2px solid #D4AF37;
+            color: #8B4513;
+        }
+        
+        .chat-input {
+            display: flex;
+            padding: 15px;
+            gap: 12px;
+            background: #F5DEB3;
+            border-radius: 0 0 12px 12px;
+        }
+        
+        .chat-input input {
+            flex: 1;
+            margin-bottom: 0;
+        }
+        
+        .chat-input button {
+            width: 100px;
+            margin-bottom: 0;
+        }
+        
+        .calendar-grid {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            gap: 5px;
+            margin-bottom: 20px;
+        }
+        
+        .calendar-day {
+            aspect-ratio: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            background: white;
+            border: 2px solid #D4AF37;
+            border-radius: 10px;
+            cursor: pointer;
+            padding: 5px;
+            font-size: 14px;
+            color: #8B4513;
+        }
+        
+        .calendar-day:active {
+            background: #FFF8DC;
+        }
+        
+        .calendar-day.today {
+            background: linear-gradient(135deg, #D4AF37 0%, #FFD700 100%);
+            border: 3px solid #8B4513;
+            font-weight: bold;
+        }
+        
+        .calendar-day.has-note {
+            background: linear-gradient(135deg, #90EE90 0%, #98FB98 100%);
+        }
+        
+        .calendar-day.has-note::after {
+            content: '📝';
+            font-size: 10px;
+        }
+        
+        .hidden {
+            display: none !important;
+        }
+        
+        .status-bar {
+            background: linear-gradient(145deg, #F5DEB3 0%, #DEB887 50%, #D2B48C 100%);
+            padding: 15px;
+            border-radius: 15px;
+            margin-bottom: 15px;
+            text-align: center;
+            font-weight: bold;
+            color: #8B4513;
+            border: 4px solid #D4AF37;
+            font-size: 18px;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Login Screen -->
+    <div id="loginScreen">
+        <div class="container">
+            <h1>🍯 Der Druidenkessel 🍯</h1>
+            <h2>Chat • Radio • Kalender</h2>
+            <div id="loginForm">
+                <input type="text" id="loginUser" placeholder="Benutzername" autocomplete="username">
+                <input type="password" id="loginPass" placeholder="Passwort" autocomplete="current-password">
+                <button class="btn" onclick="login()">Anmelden</button>
+                <button class="btn btn-green" onclick="showRegister()">Neues Konto</button>
+            </div>
+            <div id="registerForm" class="hidden">
+                <input type="text" id="regUser" placeholder="Neuer Benutzername" autocomplete="username">
+                <input type="password" id="regPass" placeholder="Neues Passwort" autocomplete="new-password">
+                <button class="btn btn-green" onclick="register()">Registrieren</button>
+                <button class="btn" onclick="showLogin()">Zurück</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main App -->
+    <div id="mainApp" class="hidden">
+        <div class="status-bar">
+            Hallo <strong id="currentUser"></strong>! | Druidenkessel
+            <button class="btn btn-red" onclick="logout()" style="width: auto; padding: 8px 15px; margin: 10px auto 0; display: block;">Abmelden</button>
+        </div>
+
+        <!-- Tabs -->
+        <div class="tabs">
+            <button class="tab active" onclick="showTab('chat')">💬 Chat</button>
+            <button class="tab" onclick="showTab('radio')">📻 Radio</button>
+            <button class="tab" onclick="showTab('kalender')">📅 Kalender</button>
+        </div>
+
+        <!-- Chat Tab -->
+        <div id="chatTab" class="tab-content active">
+            <div class="chat-container">
+                <div id="chatMessages" class="chat-messages"></div>
+                <div class="chat-input">
+                    <input type="text" id="messageInput" placeholder="Nachricht..." onkeypress="if(event.key==='Enter') sendMessage()">
+                    <button class="btn" onclick="sendMessage()">Senden</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Radio Tab -->
+        <div id="radioTab" class="tab-content">
+            <div class="container">
+                <h2>📻 Winnies Radio</h2>
+                
+                <!-- Radio Controls -->
+                <div style="background: linear-gradient(135deg, #D4AF37 0%, #FFD700 100%); border: 3px solid #8B4513; border-radius: 15px; padding: 20px; margin-bottom: 20px;">
+                    <button id="radioBtn" onclick="toggleRadio()" class="btn btn-green" style="font-size: 20px;">
+                        ▶️ RADIO STARTEN
+                    </button>
+                    <div id="radioInfo" style="text-align: center; color: #8B4513; margin-top: 10px;">
+                        Starte das Radio!
+                    </div>
+                </div>
+                
+                <!-- Chef Controls (nur Winnie) -->
+                <div id="chefControls" class="hidden" style="background: linear-gradient(135deg, #FFD700 0%, #FFA500 100%); border: 3px solid #8B4513; border-radius: 15px; padding: 20px; margin-bottom: 20px;">
+                    <h3 style="color: #8B4513; margin-bottom: 15px; text-align: center;">👑 Chef Winnie - Musik hochladen</h3>
+                    
+                    <h4 style="color: #8B4513; margin-bottom: 10px;">Methode 1: Lokale Dateien (empfohlen)</h4>
+                    <input type="file" id="musikFile" accept="audio/*" multiple style="margin-bottom: 15px;">
+                    <button onclick="addLocalMusic()" class="btn btn-green">+ Lokale Musik hinzufügen</button>
+                    
+                    <hr style="border: 1px solid #8B4513; margin: 20px 0;">
+                    
+                    <h4 style="color: #8B4513; margin-bottom: 10px;">Methode 2: Google Drive Link</h4>
+                    <input type="text" id="musikLink" placeholder="Google Drive Link">
+                    <input type="text" id="musikName" placeholder="Song-Name">
+                    <button onclick="addMusic()" class="btn btn-green">+ Link hinzufügen</button>
+                    
+                    <p style="margin-top: 15px; font-size: 13px; color: #8B4513; text-align: center;">
+                        💡 Tipp: Lokale Dateien aus G:\Meine Ablage\WinnieMusik funktionieren am besten!
+                    </p>
+                </div>
+                
+                <!-- Musik Liste -->
+                <div id="musikListe"></div>
+            </div>
+        </div>
+
+        <!-- Kalender Tab -->
+        <div id="kalenderTab" class="tab-content">
+            <div class="container">
+                <h2>📅 Kalender</h2>
+                
+                <!-- Kalender Navigation -->
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; padding: 15px; background: linear-gradient(135deg, #D4AF37 0%, #FFD700 100%); border-radius: 15px; border: 3px solid #8B4513;">
+                    <button onclick="previousMonth()" class="btn" style="width: 80px; margin: 0;">◀</button>
+                    <h3 id="currentMonth" style="color: #8B4513; margin: 0;"></h3>
+                    <button onclick="nextMonth()" class="btn" style="width: 80px; margin: 0;">▶</button>
+                </div>
+                
+                <!-- Kalender Grid -->
+                <div style="display: grid; grid-template-columns: repeat(7, 1fr); gap: 5px; margin-bottom: 10px;">
+                    <div style="text-align: center; font-weight: bold; color: #8B4513; padding: 5px;">So</div>
+                    <div style="text-align: center; font-weight: bold; color: #8B4513; padding: 5px;">Mo</div>
+                    <div style="text-align: center; font-weight: bold; color: #8B4513; padding: 5px;">Di</div>
+                    <div style="text-align: center; font-weight: bold; color: #8B4513; padding: 5px;">Mi</div>
+                    <div style="text-align: center; font-weight: bold; color: #8B4513; padding: 5px;">Do</div>
+                    <div style="text-align: center; font-weight: bold; color: #8B4513; padding: 5px;">Fr</div>
+                    <div style="text-align: center; font-weight: bold; color: #8B4513; padding: 5px;">Sa</div>
+                </div>
+                <div id="calendarGrid" class="calendar-grid"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Kalender Notiz Modal -->
+    <div id="noteModal" class="hidden" style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); z-index: 1000; display: flex; align-items: center; justify-content: center; padding: 20px;">
+        <div style="background: linear-gradient(145deg, #F5DEB3 0%, #DEB887 50%, #D2B48C 100%); border-radius: 20px; padding: 30px; max-width: 500px; width: 100%; border: 4px solid #D4AF37;">
+            <h3 id="modalDate" style="color: #8B4513; margin-bottom: 20px; text-align: center;"></h3>
+            <div id="noteContent"></div>
+            <button onclick="closeNoteModal()" class="btn btn-red">Schließen</button>
+        </div>
+    </div>
+
+    <script>
+        // Daten
+        let currentUser = null;
+        let users = JSON.parse(localStorage.getItem('druiden_users')) || [
+            { username: 'Winnie', password: 'BinIchGut', role: 'chef' }
+        ];
+        let messages = JSON.parse(localStorage.getItem('druiden_messages')) || [];
+        let musikFiles = JSON.parse(localStorage.getItem('druiden_musik')) || [];
+        let notes = JSON.parse(localStorage.getItem('druiden_notes')) || {};
+        let currentAudio = null;
+        let currentMusicId = null;
+        let isPlaying = false;
+        let currentDate = new Date();
+        let selectedDate = null;
+        
+        const monthNames = ['Januar', 'Februar', 'März', 'April', 'Mai', 'Juni', 'Juli', 'August', 'September', 'Oktober', 'November', 'Dezember'];
+        
+        // WINNIE'S MUSIK-ORDNER - Automatisch laden beim Start
+        const winnieMusikOrdner = [
+            'musik/Liebe_an_die_Sonne_20251029_1645.mp3',
+            'musik/Winnie_ist_nicht_nur_20251031_0613.mp3',
+            'musik/Winnie_ist_wieder_da_20250913_0943.mp3',
+            'musik/Winnie_macht_die_Klappe_auf_20251029_1735.mp3',
+            'musik/Winnie_mchte_was_20251101_0631.mp3',
+            'musik/Winnie_will_was_sagen_20251029_1735.mp3'
+        ];
+        
+        // Debug: Zeige beim Laden was im localStorage ist
+        console.log('=== APP GESTARTET ===');
+        console.log('Benutzer im localStorage:', users.length);
+        console.log('Nachrichten im localStorage:', messages.length);
+        console.log('Musik im localStorage:', musikFiles.length);
+        if (musikFiles.length > 0) {
+            console.log('Songs:', musikFiles.map(m => m.name));
+        }
+
+        // Login Functions
+        function showLogin() {
+            document.getElementById('loginForm').classList.remove('hidden');
+            document.getElementById('registerForm').classList.add('hidden');
+        }
+        
+        function showRegister() {
+            document.getElementById('loginForm').classList.add('hidden');
+            document.getElementById('registerForm').classList.remove('hidden');
+        }
+        
+        function login() {
+            const username = document.getElementById('loginUser').value.trim();
+            const password = document.getElementById('loginPass').value.trim();
+            
+            if (!username || !password) {
+                alert('Bitte Benutzername und Passwort eingeben!');
+                return;
+            }
+            
+            const user = users.find(u => u.username === username && u.password === password);
+            
+            if (user) {
+                currentUser = user;
+                document.getElementById('currentUser').textContent = username;
+                document.getElementById('loginScreen').classList.add('hidden');
+                document.getElementById('mainApp').classList.remove('hidden');
+                
+                if (username === 'Winnie') {
+                    document.getElementById('chefControls').classList.remove('hidden');
+                    // Lade Winnies Musik automatisch beim ersten Login
+                    autoLoadWinnieMusik();
+                }
+                
+                loadData();
+                addMessage('System', username + ' ist online!');
+            } else {
+                alert('Falsche Anmeldedaten!');
+            }
+        }
+        
+        // Automatisches Laden von Winnies Musik aus lokalem Ordner
+        function autoLoadWinnieMusik() {
+            // HINWEIS: Automatisches Laden funktioniert nur mit lokalem Server
+            // Für Browser ohne Server: Nutze Upload-Funktion!
+            
+            console.log('ℹ️ Automatisches Laden übersprungen (Browser-Sicherheit)');
+            console.log('💡 Nutze stattdessen die Upload-Funktion:');
+            console.log('   1. Klicke "Durchsuchen"');
+            console.log('   2. Wähle alle MP3s aus');
+            console.log('   3. Klicke "Lokale Musik hinzufügen"');
+            console.log('   4. Musik wird als Base64 gespeichert');
+            
+            // Zeige Hinweis in der App
+            if (musikFiles.length === 0) {
+                setTimeout(() => {
+                    const hint = document.createElement('div');
+                    hint.style.cssText = 'position: fixed; top: 20px; left: 50%; transform: translateX(-50%); background: linear-gradient(135deg, #FFD700 0%, #FFA500 100%); color: #8B4513; padding: 20px; border-radius: 15px; border: 3px solid #8B4513; z-index: 10000; max-width: 90%; text-align: center; font-family: Times New Roman, serif; box-shadow: 0 10px 30px rgba(0,0,0,0.5);';
+                    hint.innerHTML = '<strong style="font-size: 20px;">👑 Chef Winnie!</strong><br><br>' +
+                        'Automatisches Laden funktioniert nicht im Browser.<br><br>' +
+                        '<strong>Bitte nutze die Upload-Funktion:</strong><br>' +
+                        '1. Scrolle nach unten zu "Lokale Dateien"<br>' +
+                        '2. Klicke "Durchsuchen"<br>' +
+                        '3. Wähle alle MP3s aus (Strg+A)<br>' +
+                        '4. Klicke "Lokale Musik hinzufügen"<br><br>' +
+                        '<button onclick="this.parentElement.remove()" style="padding: 10px 20px; background: #8B4513; color: white; border: none; border-radius: 8px; cursor: pointer; font-weight: bold; font-family: Times New Roman, serif;">OK, verstanden!</button>';
+                    document.body.appendChild(hint);
+                }, 1000);
+            }
+        }
+
+        function register() {
+            const username = document.getElementById('regUser').value.trim();
+            const password = document.getElementById('regPass').value.trim();
+            
+            if (!username || !password) {
+                alert('Bitte alle Felder ausfüllen!');
+                return;
+            }
+            
+            if (username.length < 3) {
+                alert('Benutzername muss mindestens 3 Zeichen haben!');
+                return;
+            }
+            
+            if (users.find(u => u.username === username)) {
+                alert('Benutzername bereits vergeben!');
+                return;
+            }
+            
+            const newUser = { username, password, role: 'user' };
+            users.push(newUser);
+            localStorage.setItem('druiden_users', JSON.stringify(users));
+            
+            currentUser = newUser;
+            document.getElementById('currentUser').textContent = username;
+            document.getElementById('loginScreen').classList.add('hidden');
+            document.getElementById('mainApp').classList.remove('hidden');
+            
+            loadData();
+            addMessage('System', 'Neuer Benutzer: ' + username);
+            addMessage('Winnie', 'Willkommen ' + username + '! Mfg Winnie');
+        }
+        
+        function logout() {
+            if (currentUser) {
+                addMessage('System', currentUser.username + ' ist offline');
+            }
+            
+            // WICHTIG: Musik NICHT löschen beim Logout!
+            // musikFiles bleibt im localStorage gespeichert
+            
+            currentUser = null;
+            if (currentAudio) {
+                currentAudio.pause();
+                currentAudio = null;
+            }
+            currentMusicId = null;
+            isPlaying = false;
+            
+            document.getElementById('loginScreen').classList.remove('hidden');
+            document.getElementById('mainApp').classList.add('hidden');
+            document.getElementById('loginUser').value = '';
+            document.getElementById('loginPass').value = '';
+            showLogin();
+        }
+
+        // Tab Functions
+        function showTab(tabName) {
+            document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+            document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
+            
+            event.target.classList.add('active');
+            document.getElementById(tabName + 'Tab').classList.add('active');
+            
+            if (tabName === 'chat') {
+                displayMessages();
+            } else if (tabName === 'radio') {
+                displayMusik();
+            } else if (tabName === 'kalender') {
+                renderCalendar();
+            }
+        }
+        
+        // Chat Functions
+        function addMessage(user, message) {
+            const newMessage = {
+                id: Date.now(),
+                user,
+                message,
+                time: new Date().toLocaleTimeString('de-DE')
+            };
+            messages.push(newMessage);
+            localStorage.setItem('druiden_messages', JSON.stringify(messages));
+        }
+        
+        function sendMessage() {
+            const input = document.getElementById('messageInput');
+            const message = input.value.trim();
+            
+            if (message && currentUser) {
+                addMessage(currentUser.username, message);
+                input.value = '';
+                displayMessages();
+            }
+        }
+
+        function displayMessages() {
+            const container = document.getElementById('chatMessages');
+            if (!container) return;
+            
+            container.innerHTML = '';
+            
+            const recentMessages = messages.slice(-20);
+            
+            if (recentMessages.length === 0) {
+                container.innerHTML = '<p style="text-align: center; color: #666; padding: 20px;">Noch keine Nachrichten</p>';
+                return;
+            }
+            
+            recentMessages.forEach(msg => {
+                const div = document.createElement('div');
+                div.className = 'message ' + (msg.user === currentUser?.username ? 'own' : 'other');
+                
+                div.innerHTML = '<div style="font-weight: bold; margin-bottom: 5px; font-size: 14px;">' +
+                    msg.user + ' <span style="font-size: 12px; opacity: 0.7; font-weight: normal;">' + msg.time + '</span></div>' +
+                    '<div style="font-size: 15px;">' + msg.message + '</div>';
+                container.appendChild(div);
+            });
+            
+            container.scrollTop = container.scrollHeight;
+        }
+        
+        // Radio Functions
+        function addLocalMusic() {
+            const fileInput = document.getElementById('musikFile');
+            const files = fileInput.files;
+            
+            if (!files || files.length === 0) {
+                alert('Bitte wähle Audio-Dateien aus!');
+                return;
+            }
+            
+            console.log('Lade', files.length, 'lokale Datei(en)...');
+            
+            let addedCount = 0;
+            
+            for (let i = 0; i < files.length; i++) {
+                const file = files[i];
+                
+                console.log('Verarbeite:', file.name, '(' + (file.size / 1024 / 1024).toFixed(2) + ' MB)');
+                
+                // Prüfe ob Audio-Datei
+                if (!file.type.startsWith('audio/')) {
+                    alert('⚠️ "' + file.name + '" ist keine Audio-Datei!');
+                    continue;
+                }
+                
+                const reader = new FileReader();
+                
+                reader.onload = function(e) {
+                    const musikData = {
+                        id: Date.now() + Math.random(),
+                        name: file.name.replace(/\.[^/.]+$/, ""), // Entferne Datei-Endung
+                        url: e.target.result, // Base64 Data URL
+                        uploader: currentUser.username,
+                        time: new Date().toLocaleString('de-DE'),
+                        isLocal: true,
+                        size: file.size
+                    };
+                    
+                    musikFiles.push(musikData);
+                    localStorage.setItem('druiden_musik', JSON.stringify(musikFiles));
+                    
+                    console.log('✅ Musik gespeichert:', musikData.name);
+                    
+                    addedCount++;
+                    
+                    addMessage('Winnie', 'Neue Musik: ' + musikData.name);
+                    displayMusik();
+                    
+                    if (addedCount === files.length) {
+                        alert('✅ ' + addedCount + ' Song(s) hinzugefügt!\n\nKlicke auf Play zum Testen!');
+                        fileInput.value = ''; // Reset input
+                    }
+                };
+                
+                reader.onerror = function(error) {
+                    console.error('Fehler beim Lesen von', file.name, ':', error);
+                    alert('❌ Fehler beim Laden von "' + file.name + '"!');
+                };
+                
+                reader.readAsDataURL(file);
+            }
+        }
+        
+        function addMusic() {
+            let link = document.getElementById('musikLink').value.trim();
+            const name = document.getElementById('musikName').value.trim();
+            
+            if (!link || !name) {
+                alert('Bitte Link und Name eingeben!');
+                return;
+            }
+            
+            console.log('Original Link:', link);
+            
+            // Google Drive Link konvertieren
+            if (link.includes('drive.google.com')) {
+                let fileId = '';
+                
+                // Verschiedene Google Drive Link-Formate
+                if (link.includes('/file/d/')) {
+                    fileId = link.split('/file/d/')[1].split('/')[0];
+                } else if (link.includes('id=')) {
+                    fileId = link.split('id=')[1].split('&')[0];
+                } else if (link.includes('/open?id=')) {
+                    fileId = link.split('/open?id=')[1].split('&')[0];
+                }
+                
+                if (fileId) {
+                    // WICHTIG: Nutze direkten Download-Link für Audio
+                    link = 'https://drive.google.com/uc?export=download&id=' + fileId;
+                    console.log('Konvertiert zu:', link);
+                    console.log('File-ID:', fileId);
+                } else {
+                    console.warn('Konnte File-ID nicht extrahieren!');
+                    alert('⚠️ WARNUNG: Link-Format nicht erkannt!\n\nSo gehts richtig:\n\n1. Öffne Google Drive\n2. Rechtsklick auf Audio-Datei\n3. "Teilen" klicken\n4. "Jeder mit dem Link" wählen\n5. Link kopieren\n6. Hier einfügen\n\nDein Link: ' + link);
+                }
+            } else if (!link.startsWith('http://') && !link.startsWith('https://')) {
+                // Wenn kein http/https, füge https hinzu
+                link = 'https://' + link;
+                console.log('https:// hinzugefügt:', link);
+            }
+            
+            console.log('Finaler Link:', link);
+            
+            const musikData = {
+                id: Date.now(),
+                name: name,
+                url: link,
+                uploader: currentUser.username,
+                time: new Date().toLocaleString('de-DE'),
+                isLocal: false
+            };
+            
+            musikFiles.push(musikData);
+            localStorage.setItem('druiden_musik', JSON.stringify(musikFiles));
+            
+            console.log('Musik gespeichert:', musikData);
+            
+            document.getElementById('musikLink').value = '';
+            document.getElementById('musikName').value = '';
+            
+            addMessage('Winnie', 'Neue Musik: ' + name);
+            displayMusik();
+            alert('✅ Musik hinzugefügt!\n\n' + name + '\n\nKlicke auf Play zum Testen!');
+        }
+
+        function displayMusik() {
+            const container = document.getElementById('musikListe');
+            if (!container) return;
+            
+            container.innerHTML = '';
+            
+            if (musikFiles.length === 0) {
+                container.innerHTML = '<div style="text-align: center; color: #666; padding: 40px; background: white; border-radius: 15px; border: 2px dashed #D4AF37;">' +
+                    '<h3 style="color: #8B4513; margin-bottom: 10px;">Noch keine Musik</h3>' +
+                    '<p>' + (currentUser.username === 'Winnie' ? 'Lade die erste Musik hoch!' : 'Chef Winnie lädt bald Musik hoch!') + '</p></div>';
+                return;
+            }
+            
+            musikFiles.forEach(musik => {
+                const div = document.createElement('div');
+                div.className = 'container';
+                div.style.marginBottom = '15px';
+                
+                div.innerHTML = '<div style="font-weight: bold; font-size: 18px; color: #8B4513; margin-bottom: 5px;">' + musik.name + '</div>' +
+                    '<div style="font-size: 14px; color: #666; margin-bottom: 10px;">Von: ' + musik.uploader + ' | ' + musik.time + '</div>' +
+                    '<button onclick="playMusic(\'' + musik.id + '\')" class="btn">' +
+                    (currentMusicId === musik.id && isPlaying ? '⏸️ Pause' : '▶️ Play') + '</button>' +
+                    (currentUser.username === 'Winnie' ? '<button onclick="deleteMusic(\'' + musik.id + '\')" class="btn btn-red">🗑️ Löschen</button>' : '');
+                
+                container.appendChild(div);
+            });
+        }
+        
+        function playMusic(musikId) {
+            const musik = musikFiles.find(m => m.id == musikId);
+            if (!musik) {
+                console.error('Musik nicht gefunden:', musikId);
+                return;
+            }
+            
+            console.log('Spiele Musik:', musik.name);
+            console.log('URL:', musik.url);
+            
+            if (currentMusicId === musikId && currentAudio) {
+                if (isPlaying) {
+                    currentAudio.pause();
+                    isPlaying = false;
+                    console.log('Musik pausiert');
+                } else {
+                    currentAudio.play().catch(err => {
+                        console.error('Fehler beim Abspielen:', err);
+                        alert('Fehler beim Abspielen!\n\nPrüfe:\n1. Ist der Google Drive Link korrekt?\n2. Ist die Datei auf "Jeder mit dem Link" gesetzt?\n3. Ist es eine Audio-Datei?');
+                    });
+                    isPlaying = true;
+                    console.log('Musik fortgesetzt');
+                }
+            } else {
+                if (currentAudio) {
+                    currentAudio.pause();
+                    currentAudio = null;
+                }
+                
+                console.log('Erstelle neues Audio-Element...');
+                currentAudio = new Audio(musik.url);
+                currentMusicId = musikId;
+                
+                // Fehlerbehandlung
+                currentAudio.onerror = (e) => {
+                    console.error('Audio-Fehler:', e);
+                    console.error('URL:', musik.url);
+                    console.error('Pfad-Typ:', musik.isLocal ? 'Lokal' : 'Link');
+                    
+                    let errorMsg = '❌ Fehler beim Laden der Musik!\n\n';
+                    
+                    if (musik.isLocal) {
+                        errorMsg += '📁 LOKALE DATEI:\n';
+                        errorMsg += 'Datei: ' + musik.url + '\n\n';
+                        errorMsg += 'PROBLEM:\n';
+                        errorMsg += '• Musik-Ordner fehlt?\n';
+                        errorMsg += '• Datei wurde verschoben?\n';
+                        errorMsg += '• Falscher Pfad?\n\n';
+                        errorMsg += 'LÖSUNG:\n';
+                        errorMsg += '1. Prüfe ob "musik" Ordner neben DruidenApp.html ist\n';
+                        errorMsg += '2. Prüfe ob MP3-Dateien im musik/ Ordner sind\n';
+                        errorMsg += '3. Öffne DruidenApp.html aus dem richtigen Ordner\n\n';
+                        errorMsg += '💡 TIPP:\n';
+                        errorMsg += 'Öffne DruidenApp.html direkt aus dem Ordner,\n';
+                        errorMsg += 'nicht aus Downloads oder Desktop!';
+                    } else {
+                        errorMsg += '🔗 GOOGLE DRIVE LINK:\n';
+                        errorMsg += 'Mögliche Ursachen:\n';
+                        errorMsg += '1. Google Drive Link ist falsch\n';
+                        errorMsg += '2. Datei ist nicht auf "Jeder mit dem Link" gesetzt\n';
+                        errorMsg += '3. Keine Audio-Datei\n';
+                        errorMsg += '4. Internet-Verbindung fehlt\n\n';
+                        errorMsg += 'Tipp: Nutze den direkten Download-Link von Google Drive!';
+                    }
+                    
+                    alert(errorMsg);
+                    isPlaying = false;
+                    displayMusik();
+                    updateRadioInfo();
+                };
+                
+                currentAudio.onloadeddata = () => {
+                    console.log('Audio geladen, Dauer:', currentAudio.duration, 'Sekunden');
+                };
+                
+                currentAudio.onended = () => {
+                    console.log('Musik beendet');
+                    isPlaying = false;
+                    displayMusik();
+                    updateRadioInfo();
+                };
+                
+                currentAudio.play().then(() => {
+                    console.log('Musik startet...');
+                    isPlaying = true;
+                    displayMusik();
+                    updateRadioInfo();
+                }).catch(err => {
+                    console.error('Fehler beim Abspielen:', err);
+                    alert('Fehler beim Abspielen!\n\nPrüfe:\n1. Ist der Google Drive Link korrekt?\n2. Ist die Datei auf "Jeder mit dem Link" gesetzt?\n3. Ist es eine Audio-Datei?\n\nAktueller Link:\n' + musik.url);
+                    isPlaying = false;
+                    displayMusik();
+                    updateRadioInfo();
+                });
+            }
+            
+            displayMusik();
+            updateRadioInfo();
+        }
+
+        function deleteMusic(musikId) {
+            if (!confirm('Musik wirklich löschen?')) return;
+            
+            musikFiles = musikFiles.filter(m => m.id != musikId);
+            localStorage.setItem('druiden_musik', JSON.stringify(musikFiles));
+            
+            if (currentMusicId == musikId && currentAudio) {
+                currentAudio.pause();
+                currentAudio = null;
+                currentMusicId = null;
+                isPlaying = false;
+            }
+            
+            displayMusik();
+            updateRadioInfo();
+        }
+        
+        function toggleRadio() {
+            if (musikFiles.length === 0) {
+                alert('Noch keine Musik im Radio!');
+                return;
+            }
+            
+            if (isPlaying) {
+                if (currentAudio) currentAudio.pause();
+                isPlaying = false;
+            } else {
+                if (!currentAudio) {
+                    playMusic(musikFiles[0].id);
+                } else {
+                    currentAudio.play();
+                    isPlaying = true;
+                }
+            }
+            
+            updateRadioInfo();
+        }
+        
+        function updateRadioInfo() {
+            const btn = document.getElementById('radioBtn');
+            const info = document.getElementById('radioInfo');
+            
+            if (isPlaying && currentMusicId) {
+                const musik = musikFiles.find(m => m.id == currentMusicId);
+                btn.textContent = '⏸️ RADIO PAUSE';
+                btn.className = 'btn btn-red';
+                info.textContent = '🎵 Spielt: ' + (musik ? musik.name : 'Unbekannt');
+            } else {
+                btn.textContent = '▶️ RADIO STARTEN';
+                btn.className = 'btn btn-green';
+                info.textContent = musikFiles.length > 0 ? musikFiles.length + ' Songs verfügbar' : 'Noch keine Musik';
+            }
+        }
+
+        // Kalender Functions
+        function renderCalendar() {
+            const year = currentDate.getFullYear();
+            const month = currentDate.getMonth();
+            
+            document.getElementById('currentMonth').textContent = monthNames[month] + ' ' + year;
+            
+            const firstDay = new Date(year, month, 1);
+            const lastDay = new Date(year, month + 1, 0);
+            const prevLastDay = new Date(year, month, 0);
+            
+            const firstDayOfWeek = firstDay.getDay();
+            const lastDate = lastDay.getDate();
+            const prevLastDate = prevLastDay.getDate();
+            
+            const grid = document.getElementById('calendarGrid');
+            grid.innerHTML = '';
+            
+            // Vorheriger Monat (ausgegraut)
+            for (let i = firstDayOfWeek - 1; i >= 0; i--) {
+                const day = prevLastDate - i;
+                const dayDiv = createDayElement(day, month - 1, year, true);
+                grid.appendChild(dayDiv);
+            }
+            
+            // Aktueller Monat
+            for (let day = 1; day <= lastDate; day++) {
+                const dayDiv = createDayElement(day, month, year, false);
+                grid.appendChild(dayDiv);
+            }
+            
+            // Nächster Monat (ausgegraut)
+            const remainingDays = 42 - (firstDayOfWeek + lastDate);
+            for (let day = 1; day <= remainingDays; day++) {
+                const dayDiv = createDayElement(day, month + 1, year, true);
+                grid.appendChild(dayDiv);
+            }
+        }
+
+        function createDayElement(day, month, year, isOtherMonth) {
+            const dayDiv = document.createElement('div');
+            dayDiv.className = 'calendar-day';
+            dayDiv.textContent = day;
+            
+            if (isOtherMonth) {
+                dayDiv.style.opacity = '0.3';
+            }
+            
+            // Prüfe ob heute
+            const today = new Date();
+            if (day === today.getDate() && month === today.getMonth() && year === today.getFullYear() && !isOtherMonth) {
+                dayDiv.classList.add('today');
+            }
+            
+            // Prüfe ob Notiz vorhanden
+            const dateKey = year + '-' + (month + 1) + '-' + day;
+            if (notes[dateKey]) {
+                dayDiv.classList.add('has-note');
+            }
+            
+            dayDiv.onclick = () => openNoteModal(day, month, year);
+            
+            return dayDiv;
+        }
+        
+        function previousMonth() {
+            currentDate.setMonth(currentDate.getMonth() - 1);
+            renderCalendar();
+        }
+        
+        function nextMonth() {
+            currentDate.setMonth(currentDate.getMonth() + 1);
+            renderCalendar();
+        }
+
+        function openNoteModal(day, month, year) {
+            selectedDate = { day, month, year };
+            const dateKey = year + '-' + (month + 1) + '-' + day;
+            
+            const date = new Date(year, month, day);
+            const dayName = ['Sonntag', 'Montag', 'Dienstag', 'Mittwoch', 'Donnerstag', 'Freitag', 'Samstag'][date.getDay()];
+            
+            document.getElementById('modalDate').textContent = dayName + ', ' + day + '. ' + monthNames[month] + ' ' + year;
+            
+            const noteContent = document.getElementById('noteContent');
+            const existingNote = notes[dateKey];
+            
+            if (existingNote) {
+                // Notiz anzeigen
+                const canEdit = existingNote.author === currentUser.username || currentUser.username === 'Winnie';
+                
+                noteContent.innerHTML = '<div style="background: white; padding: 15px; border-radius: 10px; border: 2px solid #D4AF37; margin-bottom: 15px;">' +
+                    '<p style="color: #666; font-size: 14px; margin-bottom: 5px;"><strong>Von:</strong> ' + existingNote.author + '</p>' +
+                    '<p style="color: #666; font-size: 14px; margin-bottom: 10px;"><strong>Erstellt:</strong> ' + existingNote.created + '</p>' +
+                    '<div style="color: #333; white-space: pre-wrap;">' + existingNote.text + '</div></div>' +
+                    (canEdit ? '<button class="btn" onclick="editNote()">✏️ Bearbeiten</button>' : '') +
+                    (canEdit ? '<button class="btn btn-red" onclick="deleteNote()">🗑️ Löschen</button>' : '');
+            } else {
+                // Neue Notiz erstellen
+                noteContent.innerHTML = '<textarea id="noteInput" placeholder="Schreibe hier deine Notiz..." style="min-height: 150px; resize: vertical;"></textarea>' +
+                    '<button class="btn btn-green" onclick="saveNote()">💾 Speichern</button>';
+            }
+            
+            document.getElementById('noteModal').classList.remove('hidden');
+        }
+
+        function editNote() {
+            const dateKey = selectedDate.year + '-' + (selectedDate.month + 1) + '-' + selectedDate.day;
+            const existingNote = notes[dateKey];
+            
+            const noteContent = document.getElementById('noteContent');
+            noteContent.innerHTML = '<textarea id="noteInput" style="min-height: 150px; resize: vertical;">' + existingNote.text + '</textarea>' +
+                '<button class="btn btn-green" onclick="saveNote()">💾 Speichern</button>' +
+                '<button class="btn btn-red" onclick="deleteNote()">🗑️ Löschen</button>';
+        }
+        
+        function saveNote() {
+            const noteInput = document.getElementById('noteInput');
+            const noteText = noteInput.value.trim();
+            
+            if (!noteText) {
+                alert('Bitte schreibe eine Notiz!');
+                return;
+            }
+            
+            const dateKey = selectedDate.year + '-' + (selectedDate.month + 1) + '-' + selectedDate.day;
+            
+            notes[dateKey] = {
+                text: noteText,
+                author: currentUser.username,
+                created: new Date().toLocaleString('de-DE')
+            };
+            
+            localStorage.setItem('druiden_notes', JSON.stringify(notes));
+            
+            closeNoteModal();
+            renderCalendar();
+            alert('Notiz gespeichert!');
+        }
+        
+        function deleteNote() {
+            if (!confirm('Notiz wirklich löschen?')) return;
+            
+            const dateKey = selectedDate.year + '-' + (selectedDate.month + 1) + '-' + selectedDate.day;
+            delete notes[dateKey];
+            
+            localStorage.setItem('druiden_notes', JSON.stringify(notes));
+            
+            closeNoteModal();
+            renderCalendar();
+            alert('Notiz gelöscht!');
+        }
+        
+        function closeNoteModal() {
+            document.getElementById('noteModal').classList.add('hidden');
+            selectedDate = null;
+        }
+
+        // Load Data
+        function loadData() {
+            // Musik aus localStorage neu laden
+            const savedMusik = localStorage.getItem('druiden_musik');
+            if (savedMusik) {
+                musikFiles = JSON.parse(savedMusik);
+                console.log('✅ Musik aus localStorage geladen:', musikFiles.length, 'Songs');
+            }
+            
+            displayMessages();
+            displayMusik();
+            updateRadioInfo();
+        }
+        
+        // Auto-refresh Chat
+        setInterval(() => {
+            if (currentUser && document.getElementById('chatTab').classList.contains('active')) {
+                displayMessages();
+            }
+        }, 5000);
+        
+        console.log('🍯 Druidenkessel App geladen!');
+        console.log('Benutzer:', users.length);
+        console.log('Nachrichten:', messages.length);
+        console.log('Musik:', musikFiles.length);
+        console.log('Notizen:', Object.keys(notes).length);
+    </script>
+
+    <!-- Firebase SDK Integration -->
+    <script type="module">
+        // Firebase SDK importieren (Version 10.7.1)
+        import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js';
+        import { getDatabase, ref, onValue } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-database.js';
+        
+        // Firebase Konfiguration
+        const firebaseConfig = {
+            apiKey: "AIzaSyATqJRhqbhc5qKBlNETluRl3O_TG2VB7sQ",
+            authDomain: "druidenkessel2026.firebaseapp.com",
+            databaseURL: "https://druidenkessel2026-default-rtdb.europe-west1.firebasedatabase.app",
+            projectId: "druidenkessel2026",
+            storageBucket: "druidenkessel2026.firebasestorage.app",
+            messagingSenderId: "129819549989",
+            appId: "1:129819549989:web:3b34743395d48ba5f4facc"
+        };
+        
+        // Firebase initialisieren
+        console.log('🔥 Firebase wird initialisiert...');
+        const app = initializeApp(firebaseConfig);
+        const database = getDatabase(app);
+        
+        console.log('✅ Firebase App initialisiert!');
+        console.log('📊 Database URL:', firebaseConfig.databaseURL);
+        
+        // Verbindungs-Status testen
+        const connectedRef = ref(database, '.info/connected');
+        onValue(connectedRef, (snapshot) => {
+            if (snapshot.val() === true) {
+                console.log('✅ Mit Firebase Realtime Database verbunden!');
+                console.log('🌍 Region: europe-west1');
+                
+                // Zeige Erfolgs-Nachricht in der App
+                const statusBar = document.querySelector('.status-bar');
+                if (statusBar && !statusBar.textContent.includes('Firebase')) {
+                    const firebaseStatus = document.createElement('div');
+                    firebaseStatus.style.cssText = 'background: linear-gradient(135deg, #32CD32 0%, #228B22 100%); color: white; padding: 10px; border-radius: 10px; margin-top: 10px; font-size: 14px; border: 2px solid #006400;';
+                    firebaseStatus.innerHTML = '🔥 Firebase verbunden! Multi-User-Sync bereit!';
+                    statusBar.appendChild(firebaseStatus);
+                    
+                    // Nach 5 Sekunden ausblenden
+                    setTimeout(() => {
+                        firebaseStatus.style.transition = 'opacity 1s';
+                        firebaseStatus.style.opacity = '0';
+                        setTimeout(() => firebaseStatus.remove(), 1000);
+                    }, 5000);
+                }
+            } else {
+                console.log('❌ Firebase-Verbindung verloren');
+                console.log('⚠️ App läuft im Offline-Modus (nur localStorage)');
+            }
+        });
+        
+        // Firebase global verfügbar machen für spätere Nutzung
+        window.firebaseApp = app;
+        window.firebaseDatabase = database;
+        
+        console.log('🎉 Firebase Setup abgeschlossen!');
+        console.log('📝 Nächster Schritt: FirebaseSyncManager implementieren');
+    </script>
+</body>
+</html>

@@ -1,0 +1,154 @@
+========================================
+  DRUIDENKESSEL RADIO
+  Anleitung für Team-Mitglieder
+========================================
+
+Willkommen im Druidenkessel Radio! 🎵
+
+========================================
+SCHRITT 1: APP ÖFFNEN
+========================================
+
+1. Öffne: DruidenApp.html
+   (Doppelklick auf die Datei)
+
+2. Browser öffnet sich
+
+========================================
+SCHRITT 2: REGISTRIEREN
+========================================
+
+1. Klicke: "Neues Konto erstellen"
+
+2. Gib ein:
+   - Benutzername (min. 3 Zeichen)
+   - Passwort
+
+3. Klicke: "Registrieren"
+
+4. Du bist jetzt angemeldet!
+
+========================================
+SCHRITT 3: MUSIK HOCHLADEN (EINMALIG!)
+========================================
+
+1. Klicke oben auf: "📻 Radio"
+
+2. Scrolle nach unten bis:
+   "Lokale Dateien (empfohlen)"
+
+3. Klicke: "Durchsuchen"
+
+4. Navigiere zum "musik" Ordner
+   (Sollte neben DruidenApp.html sein)
+
+5. Wähle ALLE MP3-Dateien aus:
+   - Drücke Strg+A (Alle auswählen)
+   - Oder wähle alle 6 einzeln
+
+6. Klicke: "Öffnen"
+
+7. Klicke: "Lokale Musik hinzufügen"
+
+8. Warte bis fertig:
+   "✅ 6 Song(s) hinzugefügt!"
+
+========================================
+SCHRITT 4: RADIO HÖREN
+========================================
+
+1. Scrolle nach unten
+
+2. Du siehst alle 6 Songs:
+   - Liebe an die Sonne
+   - Winnie ist nicht nur
+   - Winnie ist wieder da
+   - Winnie macht die Klappe auf
+   - Winnie möchte was
+   - Winnie will was sagen
+
+3. Klicke: "RADIO STARTEN"
+
+4. Musik spielt! 🎵
+
+========================================
+FERTIG! 🎉
+========================================
+
+Du musst nur EINMAL hochladen!
+
+Beim nächsten Login:
+✅ Musik ist schon da
+✅ Kein erneutes Hochladen
+✅ Einfach "RADIO STARTEN" klicken
+
+========================================
+WEITERE FEATURES:
+========================================
+
+💬 CHAT:
+--------
+1. Klicke: "💬 Chat"
+2. Schreibe Nachricht
+3. Klicke: "Senden"
+4. Alle sehen deine Nachricht!
+
+📅 KALENDER:
+------------
+1. Klicke: "📅 Kalender"
+2. Klicke auf einen Tag
+3. Schreibe Notiz
+4. Klicke: "Speichern"
+5. Alle sehen deine Notiz!
+
+========================================
+WICHTIG:
+========================================
+
+⚠️ NUR CHEF WINNIE kann:
+   - Musik hochladen
+   - Musik löschen
+
+✅ DU kannst:
+   - Radio hören
+   - Chatten
+   - Kalender nutzen
+
+========================================
+PROBLEME?
+========================================
+
+❌ "Musik wird nicht geladen"
+   → Hast du die MP3s hochgeladen?
+   → Siehe Schritt 3
+
+❌ "Musik spielt nicht"
+   → Klicke Play bei einem Song
+   → Oder "RADIO STARTEN"
+
+❌ "Keine MP3s gefunden"
+   → Prüfe ob "musik" Ordner da ist
+   → Sollte neben DruidenApp.html sein
+
+========================================
+TIPPS:
+========================================
+
+💡 Zum Startbildschirm hinzufügen:
+   - Chrome Menu (3 Punkte)
+   - "Zum Startbildschirm hinzufügen"
+   - App-Icon erscheint auf Handy
+
+💡 Offline-Nutzung:
+   - Nach Upload funktioniert alles offline
+   - Kein Internet nötig
+
+💡 Mehrere Geräte:
+   - Auf jedem Gerät einmal hochladen
+   - Dann funktioniert es überall
+
+========================================
+
+Viel Spaß mit dem Radio! 📻
+
+Winnie mfg

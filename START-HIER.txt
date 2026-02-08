@@ -1,0 +1,90 @@
+========================================
+  🚀 START HIER!
+========================================
+
+SCHNELLSTART FÜR USB-INSTALLATION:
+
+========================================
+AUF USB KOPIEREN:
+========================================
+
+1. Kopiere DIESEN GANZEN ORDNER auf USB-Stick
+2. Oder: Kopiere alle Dateien einzeln:
+   ✅ DruidenApp.html
+   ✅ musik/ (ganzer Ordner mit 6 MP3s!)
+   ✅ README.txt
+   ✅ INSTALLATION-HANDY.txt
+   ✅ START-HIER.txt
+
+========================================
+AUF HANDY INSTALLIEREN:
+========================================
+
+EINFACH:
+1. USB an Handy
+2. Dateien nach Downloads kopieren
+3. Chrome öffnen → Downloads
+4. DruidenApp.html antippen
+5. FERTIG!
+
+AUSFÜHRLICH:
+→ Siehe: INSTALLATION-HANDY.txt
+
+========================================
+ERSTE SCHRITTE:
+========================================
+
+1. App öffnen
+2. Login als Winnie:
+   Benutzername: Winnie
+   Passwort: BinIchGut
+3. Warte 2 Sekunden
+4. Musik wird automatisch geladen!
+5. Klicke "RADIO STARTEN"
+6. Musik spielt! 🎵
+
+========================================
+WICHTIG:
+========================================
+
+⚠️ MUSIK-ORDNER MUSS DABEI SEIN!
+
+Kopiere IMMER:
+- DruidenApp.html
+- musik/ (ganzer Ordner!)
+
+Sonst funktioniert automatische Musik nicht!
+
+========================================
+INHALT:
+========================================
+
+📱 DruidenApp.html (35 KB)
+   → Hauptapp mit Chat, Radio, Kalender
+
+🎵 musik/ (22 MB)
+   → 6 MP3-Dateien
+   → Werden automatisch geladen
+
+📄 README.txt
+   → Vollständige Anleitung
+
+📄 INSTALLATION-HANDY.txt
+   → Schritt-für-Schritt für Handy
+
+📄 START-HIER.txt
+   → Diese Datei
+
+========================================
+GESAMT: ~22 MB
+========================================
+
+Passt auf jeden USB-Stick!
+Passt auf jedes Handy!
+Funktioniert offline!
+
+========================================
+
+Los geht's! 🚀
+
+Winnie mfg
