@@ -1,0 +1,2084 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="theme-color" content="#8B4513">
+    <title>Die DruidenKessel Fit und Fun App</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        body {
+            font-family: 'Times New Roman', 'Georgia', serif;
+            background: linear-gradient(135deg, #8B4513 0%, #A0522D 50%, #8B4513 100%);
+            padding: 10px;
+            min-height: 100vh;
+        }
+        
+        .container {
+            background: linear-gradient(145deg, #F5DEB3 0%, #DEB887 50%, #D2B48C 100%);
+            border-radius: 20px;
+            padding: 25px 20px 35px 20px;
+            margin-bottom: 15px;
+            box-shadow: 0 15px 30px rgba(0,0,0,0.5);
+            border: 4px solid #D4AF37;
+            position: relative;
+        }
+        
+        .container::after {
+            content: 'Winnie mfg';
+            position: absolute;
+            bottom: 8px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 12px;
+            font-weight: bold;
+            color: #8B4513;
+            letter-spacing: 2px;
+            font-style: italic;
+        }
+        
+        h1 {
+            text-align: center;
+            color: #8B4513;
+            margin-bottom: 20px;
+            font-size: 32px;
+            text-shadow: 2px 2px 4px rgba(212,175,55,0.5);
+        }
+        
+        h2 {
+            color: #8B4513;
+            margin-bottom: 15px;
+            font-size: 24px;
+            text-align: center;
+        }
+        
+        .btn {
+            width: 100%;
+            padding: 18px;
+            background: linear-gradient(145deg, #D4AF37 0%, #FFD700 100%);
+            color: #8B4513;
+            border: 3px solid #8B4513;
+            border-radius: 12px;
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 12px;
+            cursor: pointer;
+            font-family: 'Times New Roman', serif;
+        }
+        
+        .btn:active {
+            transform: scale(0.98);
+        }
+        
+        .btn-red {
+            background: linear-gradient(145deg, #DC143C 0%, #FF6347 100%);
+            color: white;
+            border-color: #8B0000;
+        }
+        
+        .btn-green {
+            background: linear-gradient(145deg, #228B22 0%, #32CD32 100%);
+            color: white;
+            border-color: #006400;
+        }
+        
+        input, textarea {
+            width: 100%;
+            padding: 15px;
+            border: 3px solid #8B4513;
+            border-radius: 10px;
+            font-size: 16px;
+            margin-bottom: 12px;
+            background: white;
+            color: #8B4513;
+            font-family: 'Times New Roman', serif;
+        }
+        
+        input:focus, textarea:focus {
+            outline: none;
+            border-color: #D4AF37;
+            box-shadow: 0 0 0 3px rgba(212, 175, 55, 0.3);
+        }
+        
+        .tabs {
+            display: flex;
+            margin-bottom: 15px;
+            background: linear-gradient(145deg, #F5DEB3 0%, #DEB887 50%, #D2B48C 100%);
+            border-radius: 15px;
+            overflow: hidden;
+            border: 4px solid #D4AF37;
+        }
+        
+        .tab {
+            flex: 1;
+            padding: 18px;
+            background: transparent;
+            border: none;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            color: #8B4513;
+            font-family: 'Times New Roman', serif;
+        }
+        
+        .tab.active {
+            background: linear-gradient(135deg, #D4AF37 0%, #FFD700 100%);
+        }
+        
+        .tab-content {
+            display: none;
+        }
+        
+        .tab-content.active {
+            display: block;
+        }
+        
+        .chat-container {
+            background: white;
+            border-radius: 15px;
+            height: 400px;
+            display: flex;
+            flex-direction: column;
+            border: 3px solid #D4AF37;
+        }
+        
+        .chat-messages {
+            flex: 1;
+            padding: 15px;
+            overflow-y: auto;
+        }
+        
+        .chat-input {
+            padding: 15px;
+            border-top: 3px solid #D4AF37;
+        }
+        
+        .message {
+            margin-bottom: 15px;
+            padding: 12px;
+            border-radius: 10px;
+            max-width: 80%;
+        }
+        
+        .message.own {
+            background: linear-gradient(135deg, #D4AF37 0%, #FFD700 100%);
+            margin-left: auto;
+            text-align: right;
+        }
+        
+        .message.other {
+            background: #F5F5F5;
+        }
+        
+        .calendar-grid {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            gap: 5px;
+            margin-bottom: 20px;
+        }
+        
+        .calendar-day {
+            aspect-ratio: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            background: white;
+            border: 2px solid #D4AF37;
+            border-radius: 10px;
+            cursor: pointer;
+            padding: 5px;
+            font-size: 14px;
+            color: #8B4513;
+        }
+        
+        .calendar-day:active {
+            background: #FFF8DC;
+        }
+        
+        .calendar-day.today {
+            background: linear-gradient(135deg, #D4AF37 0%, #FFD700 100%);
+            border: 3px solid #8B4513;
+            font-weight: bold;
+        }
+        
+        .calendar-day.has-note {
+            background: linear-gradient(135deg, #90EE90 0%, #98FB98 100%);
+        }
+        
+        .calendar-day.has-note::after {
+            content: '📝';
+            font-size: 10px;
+        }
+        
+        .hidden {
+            display: none !important;
+        }
+        
+        .status-bar {
+            background: linear-gradient(145deg, #F5DEB3 0%, #DEB887 50%, #D2B48C 100%);
+            padding: 15px;
+            border-radius: 15px;
+            margin-bottom: 15px;
+            text-align: center;
+            font-weight: bold;
+            color: #8B4513;
+            border: 4px solid #D4AF37;
+            font-size: 18px;
+        }
+        
+        .musik-item {
+            background: white;
+            padding: 15px;
+            border-radius: 10px;
+            margin-bottom: 10px;
+            border: 2px solid #D4AF37;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Login Screen -->
+    <div id="loginScreen">
+        <div class="container">
+            <h1>🍯 Die DruidenKessel Fit und Fun App 🍯</h1>
+            <h2>Chat • Radio • Spiel • Kalender</h2>
+            <div style="text-align: center; font-size: 11px; color: #8B4513; margin-top: 10px; opacity: 0.7;">
+                Gebaut von Winnie mit Schummeln
+            </div>
+            <div id="loginForm">
+                <input type="text" id="loginUser" placeholder="Benutzername" autocomplete="username">
+                <input type="password" id="loginPass" placeholder="Passwort" autocomplete="current-password">
+                <button class="btn" onclick="login()">Anmelden</button>
+                <button class="btn btn-green" onclick="showRegister()">Neues Konto</button>
+            </div>
+            <div id="registerForm" class="hidden">
+                <input type="text" id="regUser" placeholder="Neuer Benutzername" autocomplete="username">
+                <input type="password" id="regPass" placeholder="Neues Passwort" autocomplete="new-password">
+                <button class="btn btn-green" onclick="register()">Registrieren</button>
+                <button class="btn" onclick="showLogin()">Zurück</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main App -->
+    <div id="mainApp" class="hidden">
+        <div class="status-bar">
+            Hallo <strong id="currentUser"></strong>! | DruidenKessel Fit und Fun
+            <div id="onlineUsers" style="font-size: 14px; margin-top: 8px; color: #228B22;">🟢 Online: <span id="onlineList">Lädt...</span></div>
+            <button class="btn btn-red" onclick="logout()" style="width: auto; padding: 8px 15px; margin: 10px auto 0; display: block;">Abmelden</button>
+        </div>
+
+        <!-- Tabs -->
+        <div class="tabs">
+            <button class="tab active" onclick="showTab('chat')">💬 Chat</button>
+            <button class="tab" onclick="showTab('radio')">📻 Radio</button>
+            <button class="tab" onclick="showTab('spiel')">🎮 Blocks</button>
+            <button class="tab" onclick="showTab('karten')">🃏 Karten</button>
+            <button class="tab" onclick="showTab('kalender')">📅 Kalender</button>
+        </div>
+
+        <!-- Chat Tab -->
+        <div id="chatTab" class="tab-content active">
+            <div class="chat-container">
+                <div id="chatMessages" class="chat-messages"></div>
+                <div class="chat-input">
+                    <input type="text" id="messageInput" placeholder="Nachricht..." onkeypress="if(event.key==='Enter') sendMessage()">
+                    <button class="btn" onclick="sendMessage()">Senden</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Radio Tab -->
+        <div id="radioTab" class="tab-content">
+            <div class="container">
+                <h2>📻 Winnies Radio</h2>
+                
+                <!-- Musik-Links teilen (für alle) -->
+                <div style="background: linear-gradient(135deg, #FFD700 0%, #FFA500 100%); border: 3px solid #8B4513; border-radius: 15px; padding: 20px; margin-bottom: 20px;">
+                    <h3 style="color: #8B4513; margin-bottom: 15px; text-align: center;">🔗 Musik-Link teilen</h3>
+                    <input type="text" id="linkUrl" placeholder="Link (YouTube, Spotify, etc.)">
+                    <input type="text" id="linkName" placeholder="Song-Name">
+                    <button onclick="addLink()" class="btn btn-green">+ Link teilen</button>
+                    <p style="margin-top: 10px; font-size: 13px; color: #8B4513; text-align: center;">
+                        💡 Alle können Links teilen. Klicke "Link öffnen" zum Anhören.
+                    </p>
+                </div>
+                
+                <!-- Winnie: Musik in App einbinden -->
+                <div id="winnieControls" class="hidden" style="background: linear-gradient(135deg, #DC143C 0%, #FF6347 100%); border: 3px solid #8B4513; border-radius: 15px; padding: 20px; margin-bottom: 20px;">
+                    <h3 style="color: white; margin-bottom: 15px; text-align: center;">👑 Chef Winnie - In App einbinden</h3>
+                    <input type="text" id="appUrl" placeholder="Direkter MP3-Link" style="background: white;">
+                    <input type="text" id="appName" placeholder="Song-Name" style="background: white;">
+                    <button onclick="addAppMusic()" class="btn" style="background: #FFD700; color: #8B4513;">🎵 In App einbinden</button>
+                    <p style="margin-top: 10px; font-size: 13px; color: white; text-align: center;">
+                        ⚠️ Nur direkte MP3-Links funktionieren!
+                    </p>
+                </div>
+                
+                <!-- Radio Player -->
+                <div id="radioPlayer" class="hidden" style="background: linear-gradient(135deg, #D4AF37 0%, #FFD700 100%); border: 3px solid #8B4513; border-radius: 15px; padding: 20px; margin-bottom: 20px;">
+                    <button id="radioBtn" onclick="toggleRadio()" class="btn btn-green" style="font-size: 20px;">▶️ RADIO STARTEN</button>
+                    <div id="radioInfo" style="text-align: center; color: #8B4513; margin-top: 10px;">Starte das Radio!</div>
+                </div>
+                
+                <!-- Musik Liste -->
+                <div id="musikListe"></div>
+            </div>
+        </div>
+
+        <!-- Spiel Tab -->
+        <div id="spielTab" class="tab-content">
+            <div class="container">
+                <h2>🎮 Winnie Blocks</h2>
+                
+                <!-- Spiel Info -->
+                <div style="background: linear-gradient(135deg, #FFD700 0%, #FFA500 100%); border: 3px solid #8B4513; border-radius: 15px; padding: 15px; margin-bottom: 15px; text-align: center;">
+                    <div style="display: flex; justify-content: space-around; color: #8B4513; font-weight: bold; font-size: 18px;">
+                        <div>Punkte: <span id="score">0</span></div>
+                        <div>Highscore: <span id="highscore">0</span></div>
+                    </div>
+                </div>
+                
+                <!-- Spielfeld -->
+                <div style="display: flex; justify-content: center; margin-bottom: 15px;">
+                    <canvas id="gameCanvas" width="300" height="600" style="border: 4px solid #8B4513; border-radius: 10px; background: #2C1810;"></canvas>
+                </div>
+                
+                <!-- Steuerung -->
+                <div style="background: linear-gradient(135deg, #D4AF37 0%, #FFD700 100%); border: 3px solid #8B4513; border-radius: 15px; padding: 15px;">
+                    <button id="startBtn" onclick="startGame()" class="btn btn-green" style="font-size: 20px; margin-bottom: 10px;">▶️ START</button>
+                    <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; max-width: 300px; margin: 0 auto;">
+                        <div></div>
+                        <button onclick="moveUp()" class="btn">⬆️</button>
+                        <div></div>
+                        <button onclick="moveLeft()" class="btn">⬅️</button>
+                        <button onclick="moveDown()" class="btn">⬇️</button>
+                        <button onclick="moveRight()" class="btn">➡️</button>
+                    </div>
+                    <p style="margin-top: 10px; font-size: 13px; color: #8B4513; text-align: center;">
+                        💡 PC: Pfeiltasten | Handy: Buttons
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Karten Tab -->
+        <div id="kartenTab" class="tab-content">
+            <div class="container">
+                <h2>🃏 Karten-Duell</h2>
+                
+                <!-- Spiel-Status -->
+                <div id="kartenStatus" style="background: linear-gradient(135deg, #FFD700 0%, #FFA500 100%); border: 3px solid #8B4513; border-radius: 15px; padding: 15px; margin-bottom: 15px; text-align: center;">
+                    <div style="font-size: 18px; font-weight: bold; color: #8B4513; margin-bottom: 10px;">Wähle deinen Gegner</div>
+                    <div id="kartenInfo" style="font-size: 14px; color: #8B4513;">Warte auf andere Spieler...</div>
+                </div>
+                
+                <!-- Gegner wählen -->
+                <div id="gegnerWahl" style="margin-bottom: 15px;">
+                    <div style="font-weight: bold; color: #8B4513; margin-bottom: 10px;">Online Spieler:</div>
+                    <div id="spielerListe"></div>
+                </div>
+                
+                <!-- Spielfeld -->
+                <div id="kartenSpielfeld" class="hidden">
+                    <!-- Gegner Bereich -->
+                    <div style="background: linear-gradient(135deg, #DC143C 0%, #FF6347 100%); border: 3px solid #8B4513; border-radius: 15px; padding: 15px; margin-bottom: 15px; text-align: center;">
+                        <div style="color: white; font-weight: bold; margin-bottom: 10px;" id="gegnerName">Gegner</div>
+                        <div style="font-size: 14px; color: white; margin-bottom: 10px;">Karten: <span id="gegnerKarten">16</span></div>
+                        <div id="gegnerKarte" style="width: 120px; height: 160px; background: white; border: 3px solid #8B4513; border-radius: 10px; margin: 0 auto; display: flex; align-items: center; justify-content: center; font-size: 48px;">
+                            🂠
+                        </div>
+                    </div>
+                    
+                    <!-- Tisch (gespielte Karten) -->
+                    <div style="background: linear-gradient(135deg, #228B22 0%, #32CD32 100%); border: 3px solid #8B4513; border-radius: 15px; padding: 20px; margin-bottom: 15px; text-align: center; min-height: 100px;">
+                        <div style="color: white; font-weight: bold; margin-bottom: 10px;">Tisch</div>
+                        <div id="tischInfo" style="color: white; font-size: 14px;">Warte auf Karten...</div>
+                    </div>
+                    
+                    <!-- Eigener Bereich -->
+                    <div style="background: linear-gradient(135deg, #4169E1 0%, #6495ED 100%); border: 3px solid #8B4513; border-radius: 15px; padding: 15px; text-align: center;">
+                        <div style="color: white; font-weight: bold; margin-bottom: 10px;">Du (<span id="meinName"></span>)</div>
+                        <div style="font-size: 14px; color: white; margin-bottom: 10px;">Karten: <span id="meineKarten">16</span></div>
+                        <button id="karteLegenBtn" onclick="karteLegen()" class="btn" style="max-width: 200px; margin: 0 auto;">🃏 Karte legen</button>
+                        <div id="meineKarte" style="width: 120px; height: 160px; background: white; border: 3px solid #8B4513; border-radius: 10px; margin: 10px auto 0; display: flex; align-items: center; justify-content: center; font-size: 48px;">
+                            ?
+                        </div>
+                    </div>
+                    
+                    <button onclick="kartenSpielVerlassen()" class="btn btn-red" style="margin-top: 15px;">Spiel verlassen</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Kalender Tab -->
+        <div id="kalenderTab" class="tab-content">
+            <div class="container">
+                <h2>📅 Kalender</h2>
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; padding: 15px; background: linear-gradient(135deg, #D4AF37 0%, #FFD700 100%); border-radius: 15px; border: 3px solid #8B4513;">
+                    <button onclick="previousMonth()" class="btn" style="width: 80px; margin: 0;">◀</button>
+                    <h3 id="currentMonth" style="color: #8B4513; margin: 0;"></h3>
+                    <button onclick="nextMonth()" class="btn" style="width: 80px; margin: 0;">▶</button>
+                </div>
+                <div style="display: grid; grid-template-columns: repeat(7, 1fr); gap: 5px; margin-bottom: 10px;">
+                    <div style="text-align: center; font-weight: bold; color: #8B4513; padding: 5px;">So</div>
+                    <div style="text-align: center; font-weight: bold; color: #8B4513; padding: 5px;">Mo</div>
+                    <div style="text-align: center; font-weight: bold; color: #8B4513; padding: 5px;">Di</div>
+                    <div style="text-align: center; font-weight: bold; color: #8B4513; padding: 5px;">Mi</div>
+                    <div style="text-align: center; font-weight: bold; color: #8B4513; padding: 5px;">Do</div>
+                    <div style="text-align: center; font-weight: bold; color: #8B4513; padding: 5px;">Fr</div>
+                    <div style="text-align: center; font-weight: bold; color: #8B4513; padding: 5px;">Sa</div>
+                </div>
+                <div id="calendarGrid" class="calendar-grid"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Kalender Modal -->
+    <div id="noteModal" class="hidden" style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); z-index: 1000; display: flex; align-items: center; justify-content: center; padding: 20px;">
+        <div style="background: linear-gradient(145deg, #F5DEB3 0%, #DEB887 50%, #D2B48C 100%); border-radius: 20px; padding: 30px; max-width: 500px; width: 100%; border: 4px solid #D4AF37;">
+            <h3 id="modalDate" style="color: #8B4513; margin-bottom: 20px; text-align: center;"></h3>
+            <div id="noteContent"></div>
+            <button onclick="closeNoteModal()" class="btn btn-red">Schließen</button>
+        </div>
+    </div>
+
+    <script>
+        // Daten
+        let currentUser = null;
+        let users = JSON.parse(localStorage.getItem('druiden_users')) || [
+            { username: 'Winnie', password: 'BinIchGut', role: 'chef' }
+        ];
+        let messages = JSON.parse(localStorage.getItem('druiden_messages')) || [];
+        let musikLinks = JSON.parse(localStorage.getItem('druiden_links')) || [];
+        let appMusik = JSON.parse(localStorage.getItem('druiden_appmusik')) || [];
+        let notes = JSON.parse(localStorage.getItem('druiden_notes')) || {};
+        let currentAudio = null;
+        let currentMusicId = null;
+        let isPlaying = false;
+        let currentDate = new Date();
+        let selectedDate = null;
+        let onlineUsers = {};
+        let lastMessageCount = 0;
+        
+        // Kartenspiel Variablen
+        let kartenSpiel = null;
+        let meineKartenHand = [];
+        let gegnerKartenAnzahl = 0;
+        let aktuellesSpiel = null;
+        let warteAufGegner = false;
+        
+        // Skat-Karten (32 Karten, ohne Joker)
+        // Werte: 7=7, 8=8, 9=9, 10=10, Bube=11, Dame=12, König=13, Ass=14
+        const KARTEN_DECK = [
+            // Kreuz
+            {farbe: '♣', wert: 7, name: '♣7', unicode: '🃗'}, {farbe: '♣', wert: 8, name: '♣8', unicode: '🃘'},
+            {farbe: '♣', wert: 9, name: '♣9', unicode: '🃙'}, {farbe: '♣', wert: 10, name: '♣10', unicode: '🃚'},
+            {farbe: '♣', wert: 11, name: '♣B', unicode: '🃛'}, {farbe: '♣', wert: 12, name: '♣D', unicode: '🃝'},
+            {farbe: '♣', wert: 13, name: '♣K', unicode: '🃞'}, {farbe: '♣', wert: 14, name: '♣A', unicode: '🃑'},
+            // Pik
+            {farbe: '♠', wert: 7, name: '♠7', unicode: '🂧'}, {farbe: '♠', wert: 8, name: '♠8', unicode: '🂨'},
+            {farbe: '♠', wert: 9, name: '♠9', unicode: '🂩'}, {farbe: '♠', wert: 10, name: '♠10', unicode: '🂪'},
+            {farbe: '♠', wert: 11, name: '♠B', unicode: '🂫'}, {farbe: '♠', wert: 12, name: '♠D', unicode: '🂭'},
+            {farbe: '♠', wert: 13, name: '♠K', unicode: '🂮'}, {farbe: '♠', wert: 14, name: '♠A', unicode: '🂡'},
+            // Herz
+            {farbe: '♥', wert: 7, name: '♥7', unicode: '🂷'}, {farbe: '♥', wert: 8, name: '♥8', unicode: '🂸'},
+            {farbe: '♥', wert: 9, name: '♥9', unicode: '🂹'}, {farbe: '♥', wert: 10, name: '♥10', unicode: '🂺'},
+            {farbe: '♥', wert: 11, name: '♥B', unicode: '🂻'}, {farbe: '♥', wert: 12, name: '♥D', unicode: '🂽'},
+            {farbe: '♥', wert: 13, name: '♥K', unicode: '🂾'}, {farbe: '♥', wert: 14, name: '♥A', unicode: '🂱'},
+            // Karo
+            {farbe: '♦', wert: 7, name: '♦7', unicode: '🃇'}, {farbe: '♦', wert: 8, name: '♦8', unicode: '🃈'},
+            {farbe: '♦', wert: 9, name: '♦9', unicode: '🃉'}, {farbe: '♦', wert: 10, name: '♦10', unicode: '🃊'},
+            {farbe: '♦', wert: 11, name: '♦B', unicode: '🃋'}, {farbe: '♦', wert: 12, name: '♦D', unicode: '🃍'},
+            {farbe: '♦', wert: 13, name: '♦K', unicode: '🃎'}, {farbe: '♦', wert: 14, name: '♦A', unicode: '🃁'}
+        ];
+        
+        function mischeKarten() {
+            const deck = [...KARTEN_DECK];
+            for (let i = deck.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [deck[i], deck[j]] = [deck[j], deck[i]];
+            }
+            return deck;
+        }
+        
+        // Sound für neue Nachrichten (einfacher Beep)
+        function playNotificationSound() {
+            const audioContext = new (window.AudioContext || window.webkitAudioContext)();
+            const oscillator = audioContext.createOscillator();
+            const gainNode = audioContext.createGain();
+            
+            oscillator.connect(gainNode);
+            gainNode.connect(audioContext.destination);
+            
+            oscillator.frequency.value = 800;
+            oscillator.type = 'sine';
+            
+            gainNode.gain.setValueAtTime(0.3, audioContext.currentTime);
+            gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + 0.3);
+            
+            oscillator.start(audioContext.currentTime);
+            oscillator.stop(audioContext.currentTime + 0.3);
+        }
+        
+        // Spiel Variablen
+        let gameCanvas, gameCtx;
+        let gameRunning = false;
+        let score = 0;
+        let highscore = parseInt(localStorage.getItem('druiden_highscore')) || 0;
+        let currentPiece = null;
+        let currentX = 0;
+        let currentY = 0;
+        let currentRotation = 0;
+        let grid = [];
+        let gameInterval;
+        const COLS = 10;
+        const ROWS = 20;
+        const BLOCK_SIZE = 30;
+        
+        // Tetromino Formen (verschiedene Blöcke)
+        const PIECES = [
+            // I - Linie
+            {
+                shape: [[1, 1, 1, 1]],
+                color: '#FFD700'
+            },
+            // O - Quadrat
+            {
+                shape: [
+                    [1, 1],
+                    [1, 1]
+                ],
+                color: '#FFD700'
+            },
+            // T - T-Form
+            {
+                shape: [
+                    [0, 1, 0],
+                    [1, 1, 1]
+                ],
+                color: '#FFD700'
+            },
+            // L - L-Form
+            {
+                shape: [
+                    [1, 0],
+                    [1, 0],
+                    [1, 1]
+                ],
+                color: '#FFD700'
+            },
+            // J - J-Form
+            {
+                shape: [
+                    [0, 1],
+                    [0, 1],
+                    [1, 1]
+                ],
+                color: '#FFD700'
+            },
+            // S - S-Form
+            {
+                shape: [
+                    [0, 1, 1],
+                    [1, 1, 0]
+                ],
+                color: '#FFD700'
+            },
+            // Z - Z-Form
+            {
+                shape: [
+                    [1, 1, 0],
+                    [0, 1, 1]
+                ],
+                color: '#FFD700'
+            }
+        ];
+        
+        const monthNames = ['Januar', 'Februar', 'März', 'April', 'Mai', 'Juni', 'Juli', 'August', 'September', 'Oktober', 'November', 'Dezember'];
+        
+        // Login Functions
+        function showLogin() {
+            document.getElementById('loginForm').classList.remove('hidden');
+            document.getElementById('registerForm').classList.add('hidden');
+        }
+        
+        function showRegister() {
+            document.getElementById('loginForm').classList.add('hidden');
+            document.getElementById('registerForm').classList.remove('hidden');
+        }
+        
+        function login() {
+            const username = document.getElementById('loginUser').value.trim();
+            const password = document.getElementById('loginPass').value;
+            
+            if (!username || !password) {
+                alert('Bitte Benutzername und Passwort eingeben!');
+                return;
+            }
+            
+            const user = users.find(u => u.username === username && u.password === password);
+            
+            if (user) {
+                currentUser = user;
+                document.getElementById('currentUser').textContent = username;
+                document.getElementById('loginScreen').classList.add('hidden');
+                document.getElementById('mainApp').classList.remove('hidden');
+                
+                // User als online markieren
+                setUserOnline(username);
+                
+                displayMessages();
+            } else {
+                alert('Falscher Benutzername oder Passwort!');
+            }
+        }
+        
+        function register() {
+            const username = document.getElementById('regUser').value.trim();
+            const password = document.getElementById('regPass').value;
+            
+            if (!username || !password) {
+                alert('Bitte Benutzername und Passwort eingeben!');
+                return;
+            }
+            
+            if (users.find(u => u.username === username)) {
+                alert('Benutzername existiert bereits!');
+                return;
+            }
+            
+            const newUser = { username, password, role: 'user' };
+            users.push(newUser);
+            localStorage.setItem('druiden_users', JSON.stringify(users));
+            
+            currentUser = newUser;
+            document.getElementById('currentUser').textContent = username;
+            document.getElementById('loginScreen').classList.add('hidden');
+            document.getElementById('mainApp').classList.remove('hidden');
+            
+            // User als online markieren
+            setUserOnline(username);
+            
+            addMessage('System', 'Neuer Benutzer: ' + username);
+            addMessage('Winnie', 'Willkommen ' + username + '! Mfg Winnie');
+        }
+        
+        function logout() {
+            if (currentUser) {
+                addMessage('System', currentUser.username + ' ist offline');
+                // User als offline markieren
+                setUserOffline(currentUser.username);
+            }
+            
+            currentUser = null;
+            if (currentAudio) {
+                currentAudio.pause();
+                currentAudio = null;
+            }
+            currentMusicId = null;
+            isPlaying = false;
+            
+            document.getElementById('loginScreen').classList.remove('hidden');
+            document.getElementById('mainApp').classList.add('hidden');
+            document.getElementById('loginUser').value = '';
+            document.getElementById('loginPass').value = '';
+            showLogin();
+        }
+        
+        // Online Status Functions
+        function setUserOnline(username) {
+            if (window.syncManager && window.syncManager.setUserOnline) {
+                window.syncManager.setUserOnline(username);
+            }
+        }
+        
+        function setUserOffline(username) {
+            if (window.syncManager && window.syncManager.setUserOffline) {
+                window.syncManager.setUserOffline(username);
+            }
+        }
+        
+        function updateOnlineList() {
+            const onlineList = document.getElementById('onlineList');
+            if (!onlineList) return;
+            
+            const usernames = Object.keys(onlineUsers).filter(u => onlineUsers[u]);
+            
+            if (usernames.length === 0) {
+                onlineList.textContent = 'Niemand';
+                onlineList.parentElement.style.color = '#999';
+            } else {
+                onlineList.textContent = usernames.join(', ');
+                onlineList.parentElement.style.color = '#228B22';
+            }
+        }
+
+        // Tab Functions
+        function showTab(tabName) {
+            document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+            document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
+            
+            event.target.classList.add('active');
+            document.getElementById(tabName + 'Tab').classList.add('active');
+            
+            if (tabName === 'chat') {
+                displayMessages();
+            } else if (tabName === 'radio') {
+                displayMusik();
+                // Zeige Winnie-Controls nur für Chef
+                const winnieControls = document.getElementById('winnieControls');
+                if (winnieControls && currentUser && currentUser.role === 'chef') {
+                    winnieControls.classList.remove('hidden');
+                } else if (winnieControls) {
+                    winnieControls.classList.add('hidden');
+                }
+                // Zeige Player nur wenn App-Musik vorhanden
+                const radioPlayer = document.getElementById('radioPlayer');
+                if (radioPlayer && appMusik.length > 0) {
+                    radioPlayer.classList.remove('hidden');
+                } else if (radioPlayer) {
+                    radioPlayer.classList.add('hidden');
+                }
+            } else if (tabName === 'spiel') {
+                if (!gameCanvas) {
+                    initGame();
+                }
+            } else if (tabName === 'karten') {
+                updateSpielerListe();
+            } else if (tabName === 'kalender') {
+                renderCalendar();
+            }
+        }
+        
+        // Chat Functions
+        function addMessage(user, message) {
+            const newMessage = {
+                id: Date.now(),
+                user,
+                message,
+                time: new Date().toLocaleTimeString('de-DE')
+            };
+            messages.push(newMessage);
+            localStorage.setItem('druiden_messages', JSON.stringify(messages));
+            
+            // Zu Firebase hinzufügen
+            if (window.syncManager) {
+                window.syncManager.addMessage(newMessage);
+            }
+        }
+        
+        function sendMessage() {
+            const input = document.getElementById('messageInput');
+            const message = input.value.trim();
+            
+            if (message && currentUser) {
+                addMessage(currentUser.username, message);
+                input.value = '';
+                displayMessages();
+            }
+        }
+
+        function displayMessages() {
+            const container = document.getElementById('chatMessages');
+            if (!container) return;
+            
+            const wasAtBottom = container.scrollHeight - container.scrollTop <= container.clientHeight + 50;
+            
+            container.innerHTML = '';
+            
+            const recentMessages = messages.slice(-50);
+            
+            if (recentMessages.length === 0) {
+                container.innerHTML = '<p style="text-align: center; color: #666; padding: 20px;">Noch keine Nachrichten</p>';
+                return;
+            }
+            
+            // Sound abspielen wenn neue Nachricht (aber nicht eigene)
+            if (recentMessages.length > lastMessageCount && lastMessageCount > 0) {
+                const lastMsg = recentMessages[recentMessages.length - 1];
+                if (currentUser && lastMsg.user !== currentUser.username) {
+                    playNotificationSound();
+                }
+            }
+            lastMessageCount = recentMessages.length;
+            
+            recentMessages.forEach(msg => {
+                const div = document.createElement('div');
+                div.className = 'message ' + (msg.user === currentUser?.username ? 'own' : 'other');
+                
+                const canDelete = currentUser && (msg.user === currentUser.username || currentUser.role === 'chef');
+                
+                div.innerHTML = '<div style="font-weight: bold; margin-bottom: 5px; font-size: 14px;">' +
+                    msg.user + ' <span style="font-size: 12px; opacity: 0.7; font-weight: normal;">' + msg.time + '</span></div>' +
+                    '<div style="font-size: 15px;">' + msg.message + '</div>' +
+                    (canDelete ? '<button onclick="deleteMessage(\'' + msg.id + '\')" style="margin-top: 8px; padding: 5px 10px; background: #DC143C; color: white; border: none; border-radius: 5px; font-size: 12px; cursor: pointer;">🗑️ Löschen</button>' : '');
+                container.appendChild(div);
+            });
+            
+            // Auto-Scroll nach unten (wenn User schon unten war oder neue Nachricht)
+            if (wasAtBottom || recentMessages.length === 1) {
+                container.scrollTop = container.scrollHeight;
+            }
+        }
+        
+        function deleteMessage(messageId) {
+            if (!confirm('Nachricht wirklich löschen?')) return;
+            
+            messages = messages.filter(m => m.id != messageId);
+            localStorage.setItem('druiden_messages', JSON.stringify(messages));
+            
+            // Von Firebase löschen
+            if (window.syncManager && window.syncManager.deleteMessage) {
+                window.syncManager.deleteMessage(messageId);
+            }
+            
+            displayMessages();
+        }
+        
+        // Radio Functions
+        function addLink() {
+            const url = document.getElementById('linkUrl').value.trim();
+            const name = document.getElementById('linkName').value.trim();
+            
+            if (!url || !name) {
+                alert('Bitte Link und Name eingeben!');
+                return;
+            }
+            
+            const link = {
+                id: Date.now(),
+                name,
+                url,
+                uploader: currentUser.username,
+                time: new Date().toLocaleString('de-DE'),
+                type: 'link'
+            };
+            
+            musikLinks.push(link);
+            localStorage.setItem('druiden_links', JSON.stringify(musikLinks));
+            
+            // Zu Firebase hinzufügen
+            if (window.syncManager) {
+                window.syncManager.addLink(link);
+            }
+            
+            document.getElementById('linkUrl').value = '';
+            document.getElementById('linkName').value = '';
+            
+            addMessage(currentUser.username, '🔗 Neuer Link: ' + name);
+            displayMusik();
+            alert('✅ Link geteilt!\n\n' + name);
+        }
+        
+        function addAppMusic() {
+            if (currentUser.role !== 'chef') {
+                alert('❌ Nur Chef Winnie kann Musik in die App einbinden!');
+                return;
+            }
+            
+            const url = document.getElementById('appUrl').value.trim();
+            const name = document.getElementById('appName').value.trim();
+            
+            if (!url || !name) {
+                alert('Bitte Link und Name eingeben!');
+                return;
+            }
+            
+            const musik = {
+                id: Date.now(),
+                name,
+                url,
+                uploader: currentUser.username,
+                time: new Date().toLocaleString('de-DE'),
+                type: 'app'
+            };
+            
+            appMusik.push(musik);
+            localStorage.setItem('druiden_appmusik', JSON.stringify(appMusik));
+            
+            // Zu Firebase hinzufügen
+            if (window.syncManager) {
+                window.syncManager.addAppMusic(musik);
+            }
+            
+            document.getElementById('appUrl').value = '';
+            document.getElementById('appName').value = '';
+            
+            addMessage('Winnie', '🎵 Neue Musik in App: ' + name);
+            displayMusik();
+            
+            // Zeige Player
+            document.getElementById('radioPlayer').classList.remove('hidden');
+            
+            alert('✅ Musik in App eingebunden!\n\n' + name + '\n\nKlicke auf Play zum Abspielen!');
+        }
+        
+        function displayMusik() {
+            const container = document.getElementById('musikListe');
+            if (!container) return;
+            
+            container.innerHTML = '';
+            
+            // App-Musik (abspielbar)
+            if (appMusik.length > 0) {
+                const appDiv = document.createElement('div');
+                appDiv.innerHTML = '<h3 style="color: #8B4513; margin-bottom: 10px;">🎵 In App eingebunden (abspielbar)</h3>';
+                container.appendChild(appDiv);
+                
+                appMusik.forEach(musik => {
+                    const div = document.createElement('div');
+                    div.className = 'musik-item';
+                    
+                    const canDelete = currentUser.role === 'chef';
+                    
+                    div.innerHTML = '<div style="font-weight: bold; font-size: 16px; color: #8B4513; margin-bottom: 5px;">' + musik.name + '</div>' +
+                        '<div style="font-size: 13px; color: #666; margin-bottom: 10px;">Von: ' + musik.uploader + ' | ' + musik.time + '</div>' +
+                        '<button onclick="playMusic(\'' + musik.id + '\')" class="btn" style="margin-bottom: 5px;">' +
+                        (currentMusicId === musik.id && isPlaying ? '⏸️ Pause' : '▶️ Play') + '</button>' +
+                        (canDelete ? '<button onclick="deleteAppMusic(\'' + musik.id + '\')" class="btn btn-red">🗑️ Löschen</button>' : '');
+                    
+                    container.appendChild(div);
+                });
+            }
+            
+            // Musik-Links (öffnen im Browser)
+            if (musikLinks.length > 0) {
+                const linkDiv = document.createElement('div');
+                linkDiv.innerHTML = '<h3 style="color: #8B4513; margin: 20px 0 10px 0;">🔗 Geteilte Links</h3>';
+                container.appendChild(linkDiv);
+                
+                musikLinks.forEach(link => {
+                    const div = document.createElement('div');
+                    div.className = 'musik-item';
+                    
+                    const canDelete = currentUser.username === link.uploader || currentUser.role === 'chef';
+                    
+                    div.innerHTML = '<div style="font-weight: bold; font-size: 16px; color: #8B4513; margin-bottom: 5px;">' + link.name + '</div>' +
+                        '<div style="font-size: 13px; color: #666; margin-bottom: 10px;">Von: ' + link.uploader + ' | ' + link.time + '</div>' +
+                        '<button onclick="window.open(\'' + link.url + '\', \'_blank\')" class="btn btn-green">🔗 Link öffnen</button>' +
+                        (canDelete ? '<button onclick="deleteLink(\'' + link.id + '\')" class="btn btn-red">🗑️ Löschen</button>' : '');
+                    
+                    container.appendChild(div);
+                });
+            }
+            
+            if (appMusik.length === 0 && musikLinks.length === 0) {
+                container.innerHTML = '<div style="text-align: center; color: #666; padding: 40px; background: white; border-radius: 15px; border: 2px dashed #D4AF37;">' +
+                    '<h3 style="color: #8B4513; margin-bottom: 10px;">Noch keine Musik</h3>' +
+                    '<p>Teile den ersten Link!</p></div>';
+            }
+        }
+        
+        function playMusic(musikId) {
+            const musik = appMusik.find(m => m.id == musikId);
+            if (!musik) return;
+            
+            if (currentMusicId === musikId && currentAudio) {
+                if (isPlaying) {
+                    currentAudio.pause();
+                    isPlaying = false;
+                } else {
+                    currentAudio.play();
+                    isPlaying = true;
+                }
+            } else {
+                if (currentAudio) {
+                    currentAudio.pause();
+                    currentAudio = null;
+                }
+                
+                currentAudio = new Audio(musik.url);
+                currentMusicId = musikId;
+                
+                currentAudio.onerror = () => {
+                    alert('❌ Fehler beim Laden!\n\nPrüfe:\n1. Ist es ein direkter MP3-Link?\n2. Internet-Verbindung OK?');
+                    isPlaying = false;
+                    displayMusik();
+                    updateRadioInfo();
+                };
+                
+                currentAudio.onended = () => {
+                    isPlaying = false;
+                    displayMusik();
+                    updateRadioInfo();
+                };
+                
+                currentAudio.play().then(() => {
+                    isPlaying = true;
+                    displayMusik();
+                    updateRadioInfo();
+                }).catch(() => {
+                    alert('❌ Fehler beim Abspielen!');
+                    isPlaying = false;
+                    displayMusik();
+                    updateRadioInfo();
+                });
+            }
+            
+            displayMusik();
+            updateRadioInfo();
+        }
+        
+        function deleteLink(linkId) {
+            const link = musikLinks.find(l => l.id == linkId);
+            if (!link) return;
+            
+            if (currentUser.username !== link.uploader && currentUser.role !== 'chef') {
+                alert('❌ Du kannst nur deine eigenen Links löschen!');
+                return;
+            }
+            
+            if (!confirm('Link wirklich löschen?\n\n' + link.name)) return;
+            
+            musikLinks = musikLinks.filter(l => l.id != linkId);
+            localStorage.setItem('druiden_links', JSON.stringify(musikLinks));
+            
+            // Von Firebase löschen
+            if (window.syncManager) {
+                window.syncManager.deleteLink(linkId);
+            }
+            
+            addMessage(currentUser.username, '🗑️ Link gelöscht: ' + link.name);
+            displayMusik();
+        }
+        
+        function openLinkPopup(url) {
+            // Öffne Link in Modal innerhalb der App (funktioniert auch auf Handy)
+            document.getElementById('linkModalTitle').textContent = '🎵 Musik';
+            document.getElementById('linkFrame').src = url;
+            document.getElementById('linkModal').classList.remove('hidden');
+        }
+        
+        function closeLinkModal() {
+            document.getElementById('linkModal').classList.add('hidden');
+            document.getElementById('linkFrame').src = '';
+        }
+        
+        function deleteAppMusic(musikId) {
+            if (currentUser.role !== 'chef') {
+                alert('❌ Nur Chef Winnie kann App-Musik löschen!');
+                return;
+            }
+            
+            const musik = appMusik.find(m => m.id == musikId);
+            if (!musik) return;
+            
+            if (!confirm('Musik wirklich löschen?\n\n' + musik.name)) return;
+            
+            appMusik = appMusik.filter(m => m.id != musikId);
+            localStorage.setItem('druiden_appmusik', JSON.stringify(appMusik));
+            
+            // Von Firebase löschen
+            if (window.syncManager) {
+                window.syncManager.deleteAppMusic(musikId);
+            }
+            
+            if (currentMusicId == musikId && currentAudio) {
+                currentAudio.pause();
+                currentAudio = null;
+                currentMusicId = null;
+                isPlaying = false;
+            }
+            
+            // Verstecke Player wenn keine Musik mehr
+            if (appMusik.length === 0) {
+                document.getElementById('radioPlayer').classList.add('hidden');
+            }
+            
+            addMessage('Winnie', '🗑️ Musik gelöscht: ' + musik.name);
+            displayMusik();
+            updateRadioInfo();
+        }
+        
+        function toggleRadio() {
+            if (appMusik.length === 0) {
+                alert('Noch keine Musik im Radio!');
+                return;
+            }
+            
+            if (isPlaying) {
+                if (currentAudio) currentAudio.pause();
+                isPlaying = false;
+            } else {
+                if (!currentAudio) {
+                    playMusic(appMusik[0].id);
+                } else {
+                    currentAudio.play();
+                    isPlaying = true;
+                }
+            }
+            
+            updateRadioInfo();
+        }
+        
+        function updateRadioInfo() {
+            const btn = document.getElementById('radioBtn');
+            const info = document.getElementById('radioInfo');
+            
+            if (!btn || !info) return;
+            
+            if (isPlaying && currentMusicId) {
+                const musik = appMusik.find(m => m.id == currentMusicId);
+                btn.textContent = '⏸️ RADIO PAUSE';
+                btn.className = 'btn btn-red';
+                info.textContent = '🎵 Spielt: ' + (musik ? musik.name : 'Unbekannt');
+            } else {
+                btn.textContent = '▶️ RADIO STARTEN';
+                btn.className = 'btn btn-green';
+                info.textContent = appMusik.length > 0 ? appMusik.length + ' Songs verfügbar' : 'Noch keine Musik';
+            }
+        }
+        
+        // Spiel Functions
+        function initGame() {
+            gameCanvas = document.getElementById('gameCanvas');
+            gameCtx = gameCanvas.getContext('2d');
+            
+            // Grid initialisieren
+            grid = [];
+            for (let row = 0; row < ROWS; row++) {
+                grid[row] = [];
+                for (let col = 0; col < COLS; col++) {
+                    grid[row][col] = null;
+                }
+            }
+            
+            // Highscore anzeigen
+            document.getElementById('highscore').textContent = highscore;
+            
+            // Keyboard Events
+            document.addEventListener('keydown', handleKeyPress);
+            
+            drawGame();
+        }
+        
+        function getRandomPiece() {
+            const piece = PIECES[Math.floor(Math.random() * PIECES.length)];
+            return {
+                shape: piece.shape,
+                color: piece.color
+            };
+        }
+        
+        function rotatePiece(piece) {
+            const rotated = [];
+            const rows = piece.length;
+            const cols = piece[0].length;
+            
+            for (let col = 0; col < cols; col++) {
+                rotated[col] = [];
+                for (let row = rows - 1; row >= 0; row--) {
+                    rotated[col].push(piece[row][col]);
+                }
+            }
+            
+            return rotated;
+        }
+        
+        function canMove(piece, x, y) {
+            for (let row = 0; row < piece.length; row++) {
+                for (let col = 0; col < piece[row].length; col++) {
+                    if (piece[row][col]) {
+                        const newX = x + col;
+                        const newY = y + row;
+                        
+                        // Außerhalb?
+                        if (newX < 0 || newX >= COLS || newY >= ROWS) {
+                            return false;
+                        }
+                        
+                        // Kollision mit platzierten Blöcken?
+                        if (newY >= 0 && grid[newY][newX]) {
+                            return false;
+                        }
+                    }
+                }
+            }
+            return true;
+        }
+        
+        function handleKeyPress(e) {
+            if (!gameRunning) return;
+            
+            if (e.key === 'ArrowLeft') {
+                e.preventDefault();
+                moveLeft();
+            } else if (e.key === 'ArrowRight') {
+                e.preventDefault();
+                moveRight();
+            } else if (e.key === 'ArrowDown') {
+                e.preventDefault();
+                moveDown();
+            } else if (e.key === 'ArrowUp') {
+                e.preventDefault();
+                moveUp();
+            }
+        }
+        
+        function startGame() {
+            if (gameRunning) {
+                pauseGame();
+                return;
+            }
+            
+            // Reset
+            gameRunning = true;
+            score = 0;
+            
+            // Grid leeren
+            for (let row = 0; row < ROWS; row++) {
+                for (let col = 0; col < COLS; col++) {
+                    grid[row][col] = null;
+                }
+            }
+            
+            // Neues Stück
+            currentPiece = getRandomPiece();
+            currentX = Math.floor(COLS / 2) - Math.floor(currentPiece.shape[0].length / 2);
+            currentY = 0;
+            currentRotation = 0;
+            
+            document.getElementById('score').textContent = score;
+            document.getElementById('startBtn').textContent = '⏸️ PAUSE';
+            document.getElementById('startBtn').className = 'btn btn-red';
+            
+            // Game Loop starten
+            gameInterval = setInterval(gameLoop, 500);
+            drawGame();
+        }
+        
+        function pauseGame() {
+            gameRunning = false;
+            clearInterval(gameInterval);
+            document.getElementById('startBtn').textContent = '▶️ WEITER';
+            document.getElementById('startBtn').className = 'btn btn-green';
+        }
+        
+        function resumeGame() {
+            gameRunning = true;
+            gameInterval = setInterval(gameLoop, 500);
+            document.getElementById('startBtn').textContent = '⏸️ PAUSE';
+            document.getElementById('startBtn').className = 'btn btn-red';
+        }
+        
+        function gameLoop() {
+            if (!gameRunning) return;
+            
+            // Block nach unten bewegen
+            if (canMove(currentPiece.shape, currentX, currentY + 1)) {
+                currentY++;
+            } else {
+                // Block platzieren
+                placePiece();
+                
+                // Zeilen prüfen
+                checkLines();
+                
+                // Neues Stück
+                currentPiece = getRandomPiece();
+                currentX = Math.floor(COLS / 2) - Math.floor(currentPiece.shape[0].length / 2);
+                currentY = 0;
+                currentRotation = 0;
+                
+                // Game Over?
+                if (!canMove(currentPiece.shape, currentX, currentY)) {
+                    gameOver();
+                    return;
+                }
+            }
+            
+            drawGame();
+        }
+        
+        function placePiece() {
+            for (let row = 0; row < currentPiece.shape.length; row++) {
+                for (let col = 0; col < currentPiece.shape[row].length; col++) {
+                    if (currentPiece.shape[row][col]) {
+                        const y = currentY + row;
+                        const x = currentX + col;
+                        if (y >= 0 && y < ROWS && x >= 0 && x < COLS) {
+                            grid[y][x] = currentPiece.color;
+                        }
+                    }
+                }
+            }
+        }
+        
+        function checkLines() {
+            let linesCleared = 0;
+            
+            for (let row = ROWS - 1; row >= 0; row--) {
+                let full = true;
+                for (let col = 0; col < COLS; col++) {
+                    if (!grid[row][col]) {
+                        full = false;
+                        break;
+                    }
+                }
+                
+                if (full) {
+                    linesCleared++;
+                    
+                    // Zeile entfernen und nach unten schieben
+                    for (let r = row; r > 0; r--) {
+                        for (let col = 0; col < COLS; col++) {
+                            grid[r][col] = grid[r - 1][col];
+                        }
+                    }
+                    
+                    // Oberste Zeile leeren
+                    for (let col = 0; col < COLS; col++) {
+                        grid[0][col] = null;
+                    }
+                    
+                    row++; // Nochmal prüfen
+                }
+            }
+            
+            if (linesCleared > 0) {
+                score += linesCleared * 100;
+                document.getElementById('score').textContent = score;
+                
+                if (score > highscore) {
+                    highscore = score;
+                    localStorage.setItem('druiden_highscore', highscore);
+                    document.getElementById('highscore').textContent = highscore;
+                }
+            }
+        }
+        
+        function moveLeft() {
+            if (!gameRunning) return;
+            if (canMove(currentPiece.shape, currentX - 1, currentY)) {
+                currentX--;
+                drawGame();
+            }
+        }
+        
+        function moveRight() {
+            if (!gameRunning) return;
+            if (canMove(currentPiece.shape, currentX + 1, currentY)) {
+                currentX++;
+                drawGame();
+            }
+        }
+        
+        function moveDown() {
+            if (!gameRunning) return;
+            if (canMove(currentPiece.shape, currentX, currentY + 1)) {
+                currentY++;
+                drawGame();
+            }
+        }
+        
+        function moveUp() {
+            if (!gameRunning) return;
+            // Rotation
+            const rotated = rotatePiece(currentPiece.shape);
+            if (canMove(rotated, currentX, currentY)) {
+                currentPiece.shape = rotated;
+                drawGame();
+            }
+        }
+        
+        function drawGame() {
+            if (!gameCtx) return;
+            
+            // Hintergrund
+            gameCtx.fillStyle = '#2C1810';
+            gameCtx.fillRect(0, 0, gameCanvas.width, gameCanvas.height);
+            
+            // Grid zeichnen (platzierte Blöcke)
+            for (let row = 0; row < ROWS; row++) {
+                for (let col = 0; col < COLS; col++) {
+                    if (grid[row][col]) {
+                        gameCtx.fillStyle = grid[row][col];
+                        gameCtx.fillRect(col * BLOCK_SIZE + 1, row * BLOCK_SIZE + 1, BLOCK_SIZE - 2, BLOCK_SIZE - 2);
+                        
+                        // Schatten
+                        gameCtx.strokeStyle = 'rgba(0, 0, 0, 0.3)';
+                        gameCtx.lineWidth = 2;
+                        gameCtx.strokeRect(col * BLOCK_SIZE + 1, row * BLOCK_SIZE + 1, BLOCK_SIZE - 2, BLOCK_SIZE - 2);
+                    }
+                }
+            }
+            
+            // Aktuelles Stück zeichnen
+            if (currentPiece && (gameRunning || currentY === 0)) {
+                for (let row = 0; row < currentPiece.shape.length; row++) {
+                    for (let col = 0; col < currentPiece.shape[row].length; col++) {
+                        if (currentPiece.shape[row][col]) {
+                            const x = (currentX + col) * BLOCK_SIZE;
+                            const y = (currentY + row) * BLOCK_SIZE;
+                            
+                            gameCtx.fillStyle = currentPiece.color;
+                            gameCtx.fillRect(x + 1, y + 1, BLOCK_SIZE - 2, BLOCK_SIZE - 2);
+                            
+                            gameCtx.strokeStyle = 'rgba(255, 255, 255, 0.5)';
+                            gameCtx.lineWidth = 2;
+                            gameCtx.strokeRect(x + 1, y + 1, BLOCK_SIZE - 2, BLOCK_SIZE - 2);
+                        }
+                    }
+                }
+            }
+            
+            // Raster
+            gameCtx.strokeStyle = 'rgba(212, 175, 55, 0.2)';
+            gameCtx.lineWidth = 1;
+            for (let row = 0; row <= ROWS; row++) {
+                gameCtx.beginPath();
+                gameCtx.moveTo(0, row * BLOCK_SIZE);
+                gameCtx.lineTo(COLS * BLOCK_SIZE, row * BLOCK_SIZE);
+                gameCtx.stroke();
+            }
+            for (let col = 0; col <= COLS; col++) {
+                gameCtx.beginPath();
+                gameCtx.moveTo(col * BLOCK_SIZE, 0);
+                gameCtx.lineTo(col * BLOCK_SIZE, ROWS * BLOCK_SIZE);
+                gameCtx.stroke();
+            }
+        }
+        
+        function gameOver() {
+            gameRunning = false;
+            clearInterval(gameInterval);
+            
+            document.getElementById('startBtn').textContent = '▶️ NEU STARTEN';
+            document.getElementById('startBtn').className = 'btn btn-green';
+            
+            // Game Over Text
+            gameCtx.fillStyle = 'rgba(0, 0, 0, 0.7)';
+            gameCtx.fillRect(0, 250, 300, 100);
+            
+            gameCtx.fillStyle = '#FFD700';
+            gameCtx.font = 'bold 30px Times New Roman';
+            gameCtx.textAlign = 'center';
+            gameCtx.fillText('GAME OVER', 150, 290);
+            
+            gameCtx.fillStyle = 'white';
+            gameCtx.font = '20px Times New Roman';
+            gameCtx.fillText('Punkte: ' + score, 150, 320);
+            
+            if (score > highscore) {
+                gameCtx.fillStyle = '#FFD700';
+                gameCtx.fillText('🏆 NEUER REKORD! 🏆', 150, 345);
+            }
+            
+            alert('🎮 GAME OVER!\n\nPunkte: ' + score + '\nHighscore: ' + highscore);
+        }
+        
+        // Kartenspiel Functions
+        function updateSpielerListe() {
+            const liste = document.getElementById('spielerListe');
+            if (!liste) return;
+            
+            liste.innerHTML = '';
+            
+            const andereSpieler = Object.keys(onlineUsers).filter(u => onlineUsers[u] && u !== currentUser?.username);
+            
+            if (andereSpieler.length === 0) {
+                liste.innerHTML = '<div style="text-align: center; color: #666; padding: 20px;">Keine anderen Spieler online</div>';
+                return;
+            }
+            
+            andereSpieler.forEach(spieler => {
+                const btn = document.createElement('button');
+                btn.className = 'btn btn-green';
+                btn.textContent = '🃏 Gegen ' + spieler + ' spielen';
+                btn.onclick = () => spielStarten(spieler);
+                liste.appendChild(btn);
+            });
+        }
+        
+        function spielStarten(gegner) {
+            if (!currentUser) return;
+            
+            const spielId = Date.now();
+            const deck = mischeKarten();
+            
+            aktuellesSpiel = {
+                id: spielId,
+                spieler1: currentUser.username,
+                spieler2: gegner,
+                karten1: deck.slice(0, 16),
+                karten2: deck.slice(16, 32),
+                karte1: null,
+                karte2: null,
+                amZug: currentUser.username,
+                status: 'warte'
+            };
+            
+            // Spiel zu Firebase
+            if (window.syncManager && window.syncManager.kartenSpielErstellen) {
+                window.syncManager.kartenSpielErstellen(aktuellesSpiel);
+            }
+            
+            meineKartenHand = aktuellesSpiel.karten1;
+            gegnerKartenAnzahl = 16;
+            
+            document.getElementById('gegnerWahl').classList.add('hidden');
+            document.getElementById('kartenSpielfeld').classList.remove('hidden');
+            document.getElementById('gegnerName').textContent = gegner;
+            document.getElementById('meinName').textContent = currentUser.username;
+            document.getElementById('meineKarten').textContent = meineKartenHand.length;
+            document.getElementById('gegnerKarten').textContent = gegnerKartenAnzahl;
+            document.getElementById('kartenInfo').textContent = 'Warte auf ' + gegner + '...';
+        }
+        
+        function karteLegen() {
+            if (!aktuellesSpiel || !currentUser) return;
+            if (meineKartenHand.length === 0) return;
+            if (aktuellesSpiel.amZug !== currentUser.username) {
+                alert('Warte auf deinen Gegner!');
+                return;
+            }
+            
+            // Oberste Karte nehmen
+            const karte = meineKartenHand.shift();
+            
+            // Karte anzeigen
+            document.getElementById('meineKarte').innerHTML = '<div style="font-size: 64px;">' + karte.unicode + '</div><div style="font-size: 18px; font-weight: bold; color: #8B4513;">' + karte.name + '</div>';
+            document.getElementById('meineKarten').textContent = meineKartenHand.length;
+            
+            // Karte zu Firebase
+            if (aktuellesSpiel.spieler1 === currentUser.username) {
+                aktuellesSpiel.karte1 = karte;
+            } else {
+                aktuellesSpiel.karte2 = karte;
+            }
+            
+            aktuellesSpiel.amZug = aktuellesSpiel.spieler1 === currentUser.username ? aktuellesSpiel.spieler2 : aktuellesSpiel.spieler1;
+            
+            if (window.syncManager && window.syncManager.kartenSpielUpdate) {
+                window.syncManager.kartenSpielUpdate(aktuellesSpiel);
+            }
+            
+            document.getElementById('karteLegenBtn').disabled = true;
+            document.getElementById('kartenInfo').textContent = 'Warte auf Gegner...';
+            
+            // Prüfe ob beide Karten gelegt
+            if (aktuellesSpiel.karte1 && aktuellesSpiel.karte2) {
+                setTimeout(rundeAuswerten, 2000);
+            }
+        }
+        
+        function rundeAuswerten() {
+            if (!aktuellesSpiel) return;
+            
+            const karte1 = aktuellesSpiel.karte1;
+            const karte2 = aktuellesSpiel.karte2;
+            
+            let gewinner;
+            if (karte1.wert > karte2.wert) {
+                gewinner = aktuellesSpiel.spieler1;
+            } else if (karte2.wert > karte1.wert) {
+                gewinner = aktuellesSpiel.spieler2;
+            } else {
+                gewinner = 'unentschieden';
+            }
+            
+            const info = karte1.name + ' vs ' + karte2.name + ' → ' + (gewinner === 'unentschieden' ? 'Unentschieden!' : gewinner + ' gewinnt!');
+            document.getElementById('tischInfo').innerHTML = '<div style="font-size: 16px; font-weight: bold;">' + info + '</div>';
+            
+            // Karten verteilen
+            if (gewinner === currentUser.username) {
+                meineKartenHand.push(karte1, karte2);
+                document.getElementById('meineKarten').textContent = meineKartenHand.length;
+                gegnerKartenAnzahl -= 1;
+                document.getElementById('gegnerKarten').textContent = gegnerKartenAnzahl;
+            } else if (gewinner !== 'unentschieden') {
+                meineKartenHand.pop();
+                if (meineKartenHand.length < 0) meineKartenHand = [];
+                document.getElementById('meineKarten').textContent = meineKartenHand.length;
+                gegnerKartenAnzahl += 1;
+                document.getElementById('gegnerKarten').textContent = gegnerKartenAnzahl;
+            }
+            
+            // Spiel zu Ende?
+            if (meineKartenHand.length === 0) {
+                setTimeout(() => {
+                    alert('😢 Du hast verloren!\n\nDein Gegner hat alle Karten!');
+                    kartenSpielVerlassen();
+                }, 2000);
+                return;
+            }
+            
+            if (gegnerKartenAnzahl === 0) {
+                setTimeout(() => {
+                    alert('🎉 Du hast gewonnen!\n\nDu hast alle Karten!');
+                    kartenSpielVerlassen();
+                }, 2000);
+                return;
+            }
+            
+            // Nächste Runde
+            aktuellesSpiel.karte1 = null;
+            aktuellesSpiel.karte2 = null;
+            aktuellesSpiel.amZug = aktuellesSpiel.spieler1;
+            
+            if (window.syncManager && window.syncManager.kartenSpielUpdate) {
+                window.syncManager.kartenSpielUpdate(aktuellesSpiel);
+            }
+            
+            document.getElementById('karteLegenBtn').disabled = false;
+            document.getElementById('meineKarte').innerHTML = '?';
+            document.getElementById('gegnerKarte').innerHTML = '🂠';
+            
+            if (aktuellesSpiel.amZug === currentUser.username) {
+                document.getElementById('kartenInfo').textContent = 'Du bist dran!';
+            } else {
+                document.getElementById('kartenInfo').textContent = 'Warte auf Gegner...';
+            }
+        }
+        
+        function kartenSpielVerlassen() {
+            aktuellesSpiel = null;
+            meineKartenHand = [];
+            gegnerKartenAnzahl = 0;
+            
+            document.getElementById('gegnerWahl').classList.remove('hidden');
+            document.getElementById('kartenSpielfeld').classList.add('hidden');
+            document.getElementById('kartenInfo').textContent = 'Wähle deinen Gegner';
+            
+            updateSpielerListe();
+        }
+        
+        // Kalender Functions
+        function renderCalendar() {
+            const year = currentDate.getFullYear();
+            const month = currentDate.getMonth();
+            
+            document.getElementById('currentMonth').textContent = monthNames[month] + ' ' + year;
+            
+            const firstDay = new Date(year, month, 1);
+            const lastDay = new Date(year, month + 1, 0);
+            const prevLastDay = new Date(year, month, 0);
+            
+            const firstDayOfWeek = firstDay.getDay();
+            const lastDate = lastDay.getDate();
+            const prevLastDate = prevLastDay.getDate();
+            
+            const grid = document.getElementById('calendarGrid');
+            grid.innerHTML = '';
+            
+            // Vorheriger Monat
+            for (let i = firstDayOfWeek - 1; i >= 0; i--) {
+                const day = prevLastDate - i;
+                const dayDiv = createDayElement(day, month - 1, year, true);
+                grid.appendChild(dayDiv);
+            }
+            
+            // Aktueller Monat
+            for (let day = 1; day <= lastDate; day++) {
+                const dayDiv = createDayElement(day, month, year, false);
+                grid.appendChild(dayDiv);
+            }
+            
+            // Nächster Monat
+            const remainingDays = 42 - (firstDayOfWeek + lastDate);
+            for (let day = 1; day <= remainingDays; day++) {
+                const dayDiv = createDayElement(day, month + 1, year, true);
+                grid.appendChild(dayDiv);
+            }
+        }
+
+        function createDayElement(day, month, year, isOtherMonth) {
+            const dayDiv = document.createElement('div');
+            dayDiv.className = 'calendar-day';
+            dayDiv.textContent = day;
+            
+            if (isOtherMonth) {
+                dayDiv.style.opacity = '0.3';
+            }
+            
+            // Prüfe ob heute
+            const today = new Date();
+            if (day === today.getDate() && month === today.getMonth() && year === today.getFullYear() && !isOtherMonth) {
+                dayDiv.classList.add('today');
+            }
+            
+            // Prüfe ob Notiz vorhanden
+            const dateKey = year + '-' + (month + 1) + '-' + day;
+            if (notes[dateKey]) {
+                dayDiv.classList.add('has-note');
+            }
+            
+            dayDiv.onclick = () => openNoteModal(day, month, year);
+            
+            return dayDiv;
+        }
+        
+        function previousMonth() {
+            currentDate.setMonth(currentDate.getMonth() - 1);
+            renderCalendar();
+        }
+        
+        function nextMonth() {
+            currentDate.setMonth(currentDate.getMonth() + 1);
+            renderCalendar();
+        }
+
+        function openNoteModal(day, month, year) {
+            selectedDate = { day, month, year };
+            const dateKey = year + '-' + (month + 1) + '-' + day;
+            
+            const date = new Date(year, month, day);
+            const dayName = ['Sonntag', 'Montag', 'Dienstag', 'Mittwoch', 'Donnerstag', 'Freitag', 'Samstag'][date.getDay()];
+            
+            document.getElementById('modalDate').textContent = dayName + ', ' + day + '. ' + monthNames[month] + ' ' + year;
+            
+            const noteContent = document.getElementById('noteContent');
+            const existingNote = notes[dateKey];
+            
+            if (existingNote) {
+                noteContent.innerHTML = '<div style="background: white; padding: 15px; border-radius: 10px; margin-bottom: 15px; border: 2px solid #D4AF37;">' +
+                    '<div style="font-weight: bold; color: #8B4513; margin-bottom: 5px;">' + existingNote.text + '</div>' +
+                    '<div style="font-size: 13px; color: #666;">Von: ' + existingNote.author + ' | ' + existingNote.created + '</div>' +
+                    '</div>' +
+                    '<button onclick="deleteNote()" class="btn btn-red">Notiz löschen</button>';
+            } else {
+                noteContent.innerHTML = '<textarea id="noteInput" placeholder="Notiz eingeben..." style="height: 150px;"></textarea>' +
+                    '<button onclick="saveNote()" class="btn btn-green">Notiz speichern</button>';
+            }
+            
+            document.getElementById('noteModal').classList.remove('hidden');
+        }
+        
+        function closeNoteModal() {
+            document.getElementById('noteModal').classList.add('hidden');
+        }
+        
+        function saveNote() {
+            const noteInput = document.getElementById('noteInput');
+            const noteText = noteInput.value.trim();
+            
+            if (!noteText) {
+                alert('Bitte schreibe eine Notiz!');
+                return;
+            }
+            
+            const dateKey = selectedDate.year + '-' + (selectedDate.month + 1) + '-' + selectedDate.day;
+            
+            const note = {
+                id: Date.now(),
+                text: noteText,
+                author: currentUser.username,
+                created: new Date().toLocaleString('de-DE')
+            };
+            
+            notes[dateKey] = note;
+            localStorage.setItem('druiden_notes', JSON.stringify(notes));
+            
+            // Zu Firebase hinzufügen
+            if (window.syncManager) {
+                window.syncManager.addNote(dateKey, note);
+            }
+            
+            closeNoteModal();
+            renderCalendar();
+            alert('Notiz gespeichert!');
+        }
+        
+        function deleteNote() {
+            if (!confirm('Notiz wirklich löschen?')) return;
+            
+            const dateKey = selectedDate.year + '-' + (selectedDate.month + 1) + '-' + selectedDate.day;
+            
+            delete notes[dateKey];
+            localStorage.setItem('druiden_notes', JSON.stringify(notes));
+            
+            // Von Firebase löschen
+            if (window.syncManager) {
+                window.syncManager.deleteNote(dateKey);
+            }
+            
+            closeNoteModal();
+            renderCalendar();
+        }
+    </script>
+
+    <!-- Firebase SDK -->
+    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-database-compat.js"></script>
+
+    <script>
+        // ⚠️ WICHTIG: Firebase muss konfiguriert werden!
+        // Gehe zu: https://console.firebase.google.com
+        // 1. Erstelle ein neues Projekt "druidenkessel2026"
+        // 2. Aktiviere Realtime Database (Region: europe-west1)
+        // 3. Setze Regeln auf "public" (für Test):
+        //    {
+        //      "rules": {
+        //        ".read": true,
+        //        ".write": true
+        //      }
+        //    }
+        // 4. Kopiere die Config von "Project Settings > General > Your apps"
+        // 5. Ersetze die Config unten mit deinen echten Daten
+        
+        const firebaseConfig = {
+            apiKey: "AIzaSyATqJRhqbhc5qKBlNETluRl3O_TG2VB7sQ",
+            authDomain: "druidenkessel2026.firebaseapp.com",
+            databaseURL: "https://druidenkessel2026-default-rtdb.europe-west1.firebasedatabase.app",
+            projectId: "druidenkessel2026",
+            storageBucket: "druidenkessel2026.firebasestorage.app",
+            messagingSenderId: "129819549989",
+            appId: "1:129819549989:web:1ec20987aeca0673f4facc"
+        };
+
+        // Prüfe ob Firebase verfügbar ist
+        let firebaseAvailable = false;
+        try {
+            if (typeof firebase !== 'undefined') {
+                firebase.initializeApp(firebaseConfig);
+                const database = firebase.database();
+                firebaseAvailable = true;
+                console.log('✅ Firebase verbunden!');
+            }
+        } catch (error) {
+            console.warn('⚠️ Firebase nicht verfügbar:', error.message);
+            console.warn('💡 App funktioniert lokal, aber NICHT zwischen Geräten!');
+        }
+
+        // Firebase Sync Manager
+        class FirebaseSyncManager {
+            constructor() {
+                if (!firebaseAvailable) {
+                    console.warn('⚠️ Firebase Sync deaktiviert - nur lokaler Modus!');
+                    return;
+                }
+                
+                this.db = firebase.database();
+                this.setupListeners();
+            }
+
+            setupListeners() {
+                if (!firebaseAvailable) return;
+                
+                // Online Users synchronisieren
+                this.db.ref('online').on('value', (snapshot) => {
+                    onlineUsers = snapshot.val() || {};
+                    updateOnlineList();
+                });
+                
+                // Nachrichten synchronisieren
+                this.db.ref('messages').on('child_added', (snapshot) => {
+                    const msg = snapshot.val();
+                    if (!messages.find(m => m.id === msg.id)) {
+                        messages.push(msg);
+                        localStorage.setItem('druiden_messages', JSON.stringify(messages));
+                        if (document.getElementById('chatTab')?.classList.contains('active')) {
+                            displayMessages();
+                        }
+                    }
+                });
+                
+                // Nachrichten löschen synchronisieren
+                this.db.ref('messages').on('child_removed', (snapshot) => {
+                    const msg = snapshot.val();
+                    messages = messages.filter(m => m.id !== msg.id);
+                    localStorage.setItem('druiden_messages', JSON.stringify(messages));
+                    if (document.getElementById('chatTab')?.classList.contains('active')) {
+                        displayMessages();
+                    }
+                });
+
+                // Musik-Links synchronisieren
+                this.db.ref('links').on('value', (snapshot) => {
+                    const firebaseLinks = snapshot.val() || {};
+                    musikLinks = Object.values(firebaseLinks);
+                    localStorage.setItem('druiden_links', JSON.stringify(musikLinks));
+                    if (document.getElementById('radioTab')?.classList.contains('active')) {
+                        displayMusik();
+                    }
+                });
+
+                // App-Musik synchronisieren
+                this.db.ref('appmusik').on('value', (snapshot) => {
+                    const firebaseMusik = snapshot.val() || {};
+                    appMusik = Object.values(firebaseMusik);
+                    localStorage.setItem('druiden_appmusik', JSON.stringify(appMusik));
+                    if (document.getElementById('radioTab')?.classList.contains('active')) {
+                        displayMusik();
+                        const radioPlayer = document.getElementById('radioPlayer');
+                        if (radioPlayer) {
+                            if (appMusik.length > 0) {
+                                radioPlayer.classList.remove('hidden');
+                            } else {
+                                radioPlayer.classList.add('hidden');
+                            }
+                        }
+                    }
+                });
+
+                // Notizen synchronisieren
+                this.db.ref('notes').on('value', (snapshot) => {
+                    const firebaseNotes = snapshot.val() || {};
+                    notes = firebaseNotes;
+                    localStorage.setItem('druiden_notes', JSON.stringify(notes));
+                    if (document.getElementById('kalenderTab')?.classList.contains('active')) {
+                        renderCalendar();
+                    }
+                });
+                
+                // Kartenspiel synchronisieren
+                this.db.ref('kartenspiel').on('value', (snapshot) => {
+                    const spiel = snapshot.val();
+                    if (spiel && currentUser) {
+                        // Bin ich in diesem Spiel?
+                        if (spiel.spieler1 === currentUser.username || spiel.spieler2 === currentUser.username) {
+                            aktuellesSpiel = spiel;
+                            
+                            // Update UI
+                            if (document.getElementById('kartenTab')?.classList.contains('active')) {
+                                if (spiel.spieler1 === currentUser.username) {
+                                    meineKartenHand = spiel.karten1 || [];
+                                    gegnerKartenAnzahl = (spiel.karten2 || []).length;
+                                } else {
+                                    meineKartenHand = spiel.karten2 || [];
+                                    gegnerKartenAnzahl = (spiel.karten1 || []).length;
+                                }
+                                
+                                document.getElementById('meineKarten').textContent = meineKartenHand.length;
+                                document.getElementById('gegnerKarten').textContent = gegnerKartenAnzahl;
+                                
+                                // Gegner hat Karte gelegt?
+                                const gegnerKarte = spiel.spieler1 === currentUser.username ? spiel.karte2 : spiel.karte1;
+                                if (gegnerKarte) {
+                                    document.getElementById('gegnerKarte').innerHTML = '<div style="font-size: 64px;">' + gegnerKarte.unicode + '</div><div style="font-size: 18px; font-weight: bold; color: white;">' + gegnerKarte.name + '</div>';
+                                }
+                                
+                                // Beide Karten gelegt?
+                                if (spiel.karte1 && spiel.karte2) {
+                                    setTimeout(rundeAuswerten, 2000);
+                                }
+                            }
+                        }
+                    }
+                });
+                
+                console.log('✅ Firebase Listeners aktiv!');
+            }
+
+            async addMessage(message) {
+                if (!firebaseAvailable) return;
+                try {
+                    await this.db.ref('messages/' + message.id).set(message);
+                } catch (error) {
+                    console.error('Firebase Fehler:', error);
+                }
+            }
+            
+            async deleteMessage(messageId) {
+                if (!firebaseAvailable) return;
+                try {
+                    await this.db.ref('messages/' + messageId).remove();
+                } catch (error) {
+                    console.error('Firebase Fehler:', error);
+                }
+            }
+
+            async addLink(link) {
+                if (!firebaseAvailable) return;
+                try {
+                    await this.db.ref('links/' + link.id).set(link);
+                } catch (error) {
+                    console.error('Firebase Fehler:', error);
+                }
+            }
+
+            async deleteLink(linkId) {
+                if (!firebaseAvailable) return;
+                try {
+                    await this.db.ref('links/' + linkId).remove();
+                } catch (error) {
+                    console.error('Firebase Fehler:', error);
+                }
+            }
+
+            async addAppMusic(musik) {
+                if (!firebaseAvailable) return;
+                try {
+                    await this.db.ref('appmusik/' + musik.id).set(musik);
+                } catch (error) {
+                    console.error('Firebase Fehler:', error);
+                }
+            }
+
+            async deleteAppMusic(musikId) {
+                if (!firebaseAvailable) return;
+                try {
+                    await this.db.ref('appmusik/' + musikId).remove();
+                } catch (error) {
+                    console.error('Firebase Fehler:', error);
+                }
+            }
+
+            async addNote(dateKey, note) {
+                if (!firebaseAvailable) return;
+                try {
+                    await this.db.ref('notes/' + dateKey).set(note);
+                } catch (error) {
+                    console.error('Firebase Fehler:', error);
+                }
+            }
+
+            async deleteNote(dateKey) {
+                if (!firebaseAvailable) return;
+                try {
+                    await this.db.ref('notes/' + dateKey).remove();
+                } catch (error) {
+                    console.error('Firebase Fehler:', error);
+                }
+            }
+            
+            setUserOnline(username) {
+                if (!firebaseAvailable) return;
+                try {
+                    this.db.ref('online/' + username).set(true);
+                    
+                    // Automatisch offline setzen wenn Browser geschlossen wird
+                    this.db.ref('online/' + username).onDisconnect().remove();
+                } catch (error) {
+                    console.error('Firebase Fehler:', error);
+                }
+            }
+            
+            setUserOffline(username) {
+                if (!firebaseAvailable) return;
+                try {
+                    this.db.ref('online/' + username).remove();
+                } catch (error) {
+                    console.error('Firebase Fehler:', error);
+                }
+            }
+            
+            kartenSpielErstellen(spiel) {
+                if (!firebaseAvailable) return;
+                try {
+                    this.db.ref('kartenspiel').set(spiel);
+                } catch (error) {
+                    console.error('Firebase Fehler:', error);
+                }
+            }
+            
+            kartenSpielUpdate(spiel) {
+                if (!firebaseAvailable) return;
+                try {
+                    this.db.ref('kartenspiel').set(spiel);
+                } catch (error) {
+                    console.error('Firebase Fehler:', error);
+                }
+            }
+        }
+
+        // Sync Manager initialisieren
+        window.syncManager = new FirebaseSyncManager();
+    </script>
+</body>
+</html>
